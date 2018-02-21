@@ -11,4 +11,4 @@
                              | $$                                    
                              |__/                                    
 </pre>
-Contributors: Mike Adams, Igor Carvalho, Adam Lawrence, Jeremy Torella, Andy Wu
+Contributors: Mike Adams, Igor Carvalho, Adam Lawrence, Andy Wu, Jeremy Torella
