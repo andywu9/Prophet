@@ -20,15 +20,19 @@ Moved to settings_.
 
 Basic Setup
 -----------
-Run the following commands in order to setup prophet on your local machine (assumes working in bash shell) 
-* If you do not have pip3
+Run the following commands in order to setup prophet on your local machine (assumes working in bash shell)
+
+If you do not have pip3
     * sudo apt-get install python3-pip
+    
 * pip3 install -r requirements.txt
 * pip3 install django-debug-toolbar
 * pip3 install django-extensions
 * **Ubuntu/Mint/etc users**: sudo service postgresql start (This starts the database)
 * **Mac users**: pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
-If postgreSQL did not install properly and you are running Ubunut/Mint, follow https://gist.github.com/alistairewj/8aaea0261fe4015333ddf8bed5fe91f8 to setup postgreSQL on your machine. You may need to run 'sudo apt-get install software-properties-common python-software-properties' in order to use the add-apt-repository command.
+
+If postgreSQL did not install properly and you are running Ubunut/Mint, follow https://gist.github.com/alistairewj/8aaea0261fe4015333ddf8bed5fe91f8 to setup postgreSQL on your machine. You may need to run **sudo apt-get install software-properties-common python-software-properties** in order to use the add-apt-repository command.
+
 * sudo -u postgres -i
 * createuser <YourLinuxUsername>
 * createdb prophet
