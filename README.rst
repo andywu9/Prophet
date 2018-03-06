@@ -20,24 +20,44 @@ Moved to settings_.
 
 Basic Setup
 -----------
-Run the following commands in order to setup prophet on your local machine (assumes working in bash shell)
+Run the following commands **in the Prophet directory** in order to setup Prophet on your local machine (assumes working in bash shell)
 
-If you do not have pip3
-    * sudo apt-get install python3-pip
+If you do not have pip3::
+
+    $ sudo apt-get install python3-pip
     
-* pip3 install -r requirements.txt
-* pip3 install django-debug-toolbar
-* pip3 install django-extensions
-* **Ubuntu/Mint/etc users**: sudo service postgresql start (This starts the database)
-* **Mac users**: pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
+Install some requirements::
 
-If postgreSQL did not install properly and you are running Ubunut/Mint, follow https://gist.github.com/alistairewj/8aaea0261fe4015333ddf8bed5fe91f8 to setup postgreSQL on your machine. You may need to run **sudo apt-get install software-properties-common python-software-properties** in order to use the add-apt-repository command.
+    $ pip3 install -r requirements.txt
+    $ pip3 install django-debug-toolbar
+    $ pip3 install django-extensions
+    
+Create postgres user and DB::
 
-* sudo -u postgres -i
-* createuser <YourLinuxUsername>
-* createdb prophet
-* exit
-* python3 manage.py runserver (Make sure you are in the "Prophet" directory before you run this command. 
+    $ sudo -u postgres -i
+    $ createuser <YourLinuxUsername>
+    $ createdb prophet
+    $ exit
+
+If postgreSQL did not install properly and you are running Ubunut/Mint, follow https://gist.github.com/alistairewj/8aaea0261fe4015333ddf8bed5fe91f8 to setup postgreSQL on your machine. You may need to run::
+
+    $ sudo apt-get install software-properties-common python-software-properties 
+
+in order to use the add-apt-repository command.
+
+Run PostgreSQL DB
+
+**Ubuntu/Mint/etc users**::
+
+    $ : sudo service postgresql start (This starts the database)
+    
+**Mac users**::
+
+    $ pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
+    
+Start website::
+
+    $ python3 manage.py runserver
 
 You should now have the website running. Check at **localhost:8000** to view the website.
 
