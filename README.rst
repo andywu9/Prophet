@@ -39,7 +39,7 @@ Create postgres user and DB::
     $ createdb prophet
     $ exit
 
-If postgreSQL did not install properly and you are running Ubunut/Mint, follow https://gist.github.com/alistairewj/8aaea0261fe4015333ddf8bed5fe91f8 to setup postgreSQL on your machine. You may need to run::
+If postgreSQL did not install properly and you are running Ubuntu/Mint, follow https://gist.github.com/alistairewj/8aaea0261fe4015333ddf8bed5fe91f8 to setup postgreSQL on your machine. You may need to run::
 
     $ sudo apt-get install software-properties-common python-software-properties 
 
