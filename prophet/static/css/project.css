@@ -11,3 +11,33 @@
   background-color: #f2dede;
   border-color: #eed3d7;
 }
+
+.navbar {
+    /*background-color: #464eff!important;*/
+	width: 100%;
+}
+
+.table {
+	margin-top: 3%;
+}
+
+#header-row {
+    background-color: #6da5ff!important;
+}
+
+.table-bordered td, .table-bordered th {
+    border: 1px solid black!important;
+}
+
+.favstar {
+	height: 1.5%;
+}
+
+.favcell {
+	text-align: center;
+	vertical-align: center;
+}
+
+th {
+	text-align: center;
+}
