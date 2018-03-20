@@ -59,7 +59,35 @@ Start website::
 
     $ python3 manage.py runserver
 
-You should now have the website running. Check at **localhost:8000** to view the website.
+You should now have the website running. Check at **localhost:8000** to view the website.psql prophet
+
+
+Database Sync
+-------------
+
+Migrate Database
+^^^^^^^^^^^^^^^^
+   $ psql prophet
+   $ \c prophet
+   $ \password <yourpassword>
+   $ \q 
+
+* Open the file **base.py**. In this file, find the DATABASE dictionary and add a new kew:value phrase inside the "default" key. The new pair should be **"PASSWORD":"<yourpassword>"**. Back in your bash shell
+
+    $ python3 manage.py makemigrations prophet
+    $ python3 manage.py migrate
+    $ python3 manage.py shell
+    $ import collectData
+    $ collectData.collect()
+    $ quit()
+
+* You should now have data in your database to work with. If you ever want to update the database with the newest data,
+simply run 
+
+    $ python3 manage.py shell
+    $ import collectData
+    $ collectData.collect()
+    $ quit()
 
 
 Basic Commands
