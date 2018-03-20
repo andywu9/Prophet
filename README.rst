@@ -84,8 +84,7 @@ Migrate Database
     $ collectData.collect()
     $ quit()
 
-* You should now have data in your database to work with. If you ever want to update the database with the newest data,
-simply run::
+* You should now have data in your database to work with. If you ever want to update the database with the newest data, simply run::
 
     $ python3 manage.py shell
     $ import collectData
