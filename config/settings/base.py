@@ -119,7 +119,8 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
         "NAME": "prophet",
         "HOST": "localhost",
-        "PORT": "5431",
+        "PORT": "5432",
+        "PASSWORD": "test1234",
     }
 }
 DATABASES['default']['ATOMIC_REQUESTS'] = True

@@ -41,3 +41,8 @@
 th {
 	text-align: center;
 }
+
+.nowrap {
+	float: left;
+	white-space: nowrap;
+}

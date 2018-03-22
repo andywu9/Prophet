@@ -53,7 +53,7 @@ class DataAdapter(Data):
 
         self.symbol = self.my_data.get("symbol", i)
         updates = {"circulating_supply": self.circulating_supply,
-                   "market_cap": self.circulating_supply,
+                   "market_cap": self.market_cap,
                    "name": self.name,
                    "price": self.historical_price,
                    "volume": self.volume}

@@ -1,6 +1,19 @@
+Number.prototype.formatMoney = function(c, d, t){
+    var n = this, 
+    c = isNaN(c = Math.abs(c)) ? 2 : c, 
+    d = d == undefined ? "." : d, 
+    t = t == undefined ? "," : t, 
+    s = n < 0 ? "-" : "", 
+    i = String(parseInt(n = Math.abs(Number(n) || 0).toFixed(c))), 
+    j = (j = i.length) > 3 ? j % 3 : 0;
+   return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+ };
+
 $(document).ready(function() {
+
     var body = document.getElementsByClassName('table-container')[0];
     var tbl = document.createElement('table');
+    var coin_data = JSON.parse(coin_table);
 
     tbl.classList.add("table");
     tbl.classList.add("table-hover");
@@ -37,13 +50,32 @@ $(document).ready(function() {
     trh.appendChild(th7);
     tbdy.appendChild(trh);
 
+    data_type = ['name', 'price', 'market_cap', 'volume', 'circulating_supply'];
+
     for (var i = 0; i < 10; i++) {
         var tr = document.createElement('tr');
 
-        for (var j = 0; j < 5; j++) {
+        for (var j = 0; j < data_type.length; j++) {
                 var td = document.createElement('td');
-                td.appendChild(document.createTextNode("(" + i + ", " + j + ")"))
-                tr.appendChild(td)
+                var data = coin_data[i]['fields'][data_type[j]];
+
+                switch(data_type[j]) {
+                    case 'price':
+                        data = parseFloat(data);
+                        data = '$ ' + data.formatMoney(2);
+                        break;
+                    case 'market_cap':
+                    case 'volume':
+                        data = parseFloat(data);
+                        data = '$ ' + data.formatMoney(0);
+                        break;
+                }
+                var cell_div = document.createElement('div');
+                cell_div.classList.add('nowrap');
+                cell_div.appendChild(document.createTextNode(data))
+
+                td.appendChild(cell_div);
+                tr.appendChild(td);
         } 
 
         var tdgraph = document.createElement('td');
@@ -81,7 +113,7 @@ $(function() {
 
             // The data for our dataset
             data: {
-                labels: ["January", "February", "March", "April", "May", "June", "July"],
+                labels: ['','','','','','',''],//["January", "February", "March", "April", "May", "June", "July"],
                 datasets: [{
                     label: "My First dataset",
                     backgroundColor: 'rgb(255, 99, 132)',
@@ -92,8 +124,19 @@ $(function() {
 
             // Configuration options go here
             options: {
+                scales: {
+                    xAxes: [{
+                        display: false
+                    }],
+                    yAxes: [{
+                        display: false
+                    }]
+                },
+                hover: {
+                    intersect: false
+                },
                 tooltips: {
-                    mode: 'y'
+                    mode: 'index',
                 }
             }
         });
