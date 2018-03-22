@@ -50,14 +50,24 @@ $(document).ready(function() {
     trh.appendChild(th7);
     tbdy.appendChild(trh);
 
-    data_type = ['name', 'price', 'market_cap', 'volume', 'circulating_supply'];
+    data_type = ['price', 'market_cap', 'volume', 'price_change_day'];
+    console.log(coin_data);
 
     for (var i = 0; i < 10; i++) {
         var tr = document.createElement('tr');
+        var td = document.createElement('td');
+        var data = coin_data[i]['pk'];
+
+        var cell_div = document.createElement('div');
+        cell_div.classList.add('nowrap');
+        cell_div.appendChild(document.createTextNode(data))
+
+        td.appendChild(cell_div);
+        tr.appendChild(td);
 
         for (var j = 0; j < data_type.length; j++) {
-                var td = document.createElement('td');
-                var data = coin_data[i]['fields'][data_type[j]];
+                td = document.createElement('td');
+                data = coin_data[i]['fields'][data_type[j]];
 
                 switch(data_type[j]) {
                     case 'price':
@@ -69,8 +79,11 @@ $(document).ready(function() {
                         data = parseFloat(data);
                         data = '$ ' + data.formatMoney(0);
                         break;
+                    case 'price change':
+                        //format as precent
+                        break;
                 }
-                var cell_div = document.createElement('div');
+                cell_div = document.createElement('div');
                 cell_div.classList.add('nowrap');
                 cell_div.appendChild(document.createTextNode(data))
 
@@ -105,7 +118,6 @@ $(document).ready(function() {
 
 $(function() {
     $(".graph").each(function() {
-        console.log(this.nodeName);
         var ctx = $(this)[0].getContext('2d');
         var chart = new Chart(ctx, {
             // The type of chart we want to create

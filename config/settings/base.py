@@ -117,7 +117,7 @@ MANAGERS = ADMINS
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "prophet",
+        "NAME": "proph",
         "HOST": "localhost",
         "PORT": "5432",
         "PASSWORD": "test1234",
