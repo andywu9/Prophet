@@ -51,20 +51,20 @@ $(document).ready(function() {
     tbdy.appendChild(trh);
 
     data_type = ['price', 'market_cap', 'volume', 'price_change_day'];
-    console.log(coin_data);
 
-    for (var i = 0; i < 10; i++) {
+    for (var i = 0; i < 20; i++) {
         var tr = document.createElement('tr');
         var td = document.createElement('td');
-        var data = coin_data[i]['pk'];
+        var coin_name = coin_data[i]['pk'];
+        tr.setAttribute('id', coin_name);
 
         var cell_div = document.createElement('div');
         cell_div.classList.add('nowrap');
-        cell_div.appendChild(document.createTextNode(data))
+        cell_div.appendChild(document.createTextNode(coin_name))
 
         td.appendChild(cell_div);
         tr.appendChild(td);
-
+        var data;   
         for (var j = 0; j < data_type.length; j++) {
                 td = document.createElement('td');
                 data = coin_data[i]['fields'][data_type[j]];
@@ -97,45 +97,36 @@ $(document).ready(function() {
         graph.setAttribute('width', '300');
         graph.setAttribute('height', '100');
 
-        tdgraph.appendChild(graph);
-        tr.appendChild(tdgraph);
+        //Create Graph
 
-        var tdfav = document.createElement('td');
-        var starimg = new Image();
+        var historical_data = JSON.parse(historical_table);
+        var graph_data = [];
+        
+        for(data in historical_data[coin_name]) {
+            graph_data.push(historical_data[coin_name][data]['historical_price']);
+        }
 
-        //TODO: change favorited properies to match user data
-        tdfav.classList.add("favcell");
-        tdfav.setAttribute("favorited", "false")
-        starimg.classList.add('favstar')
-        starimg.src = "static/images/EmptyStar.png";
-        tdfav.appendChild(starimg);
-        tr.appendChild(tdfav);
-        tbdy.appendChild(tr);
-    }
-    tbl.appendChild(tbdy);
-    body.appendChild(tbl);
-});
-
-$(function() {
-    $(".graph").each(function() {
-        var ctx = $(this)[0].getContext('2d');
+        var ctx = graph.getContext('2d');
         var chart = new Chart(ctx, {
             // The type of chart we want to create
             type: 'line',
 
             // The data for our dataset
             data: {
-                labels: ['','','','','','',''],//["January", "February", "March", "April", "May", "June", "July"],
+                labels: graph_data,
                 datasets: [{
-                    label: "My First dataset",
-                    backgroundColor: 'rgb(255, 99, 132)',
                     borderColor: 'rgb(255, 99, 132)',
-                    data: [0, 10, 5, 2, 20, 30, 45],
+                    data: graph_data,
                 }]
             },
 
             // Configuration options go here
             options: {
+                responsive: false,
+                animation: false,
+                legend: {
+                    display: false,
+                },
                 scales: {
                     xAxes: [{
                         display: false
@@ -153,7 +144,23 @@ $(function() {
             }
         });
 
-    }); 
+        tdgraph.appendChild(graph);
+        tr.appendChild(tdgraph);
+
+        var tdfav = document.createElement('td');
+        var starimg = new Image();
+
+        tdfav.classList.add("favcell");
+        tdfav.setAttribute("favorited", "false")
+        starimg.classList.add('favstar')
+        starimg.src = "static/images/EmptyStar.png";
+        tdfav.appendChild(starimg);
+        tr.appendChild(tdfav);
+        tbdy.appendChild(tr);
+    }
+    
+    tbl.appendChild(tbdy);
+    body.appendChild(tbl);
 });
 
 $(function() {

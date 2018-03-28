@@ -49,3 +49,6 @@ redis>=2.10.5
 
 # Chart creation
 django-chartjs==1.2
+
+# JSON Encoding
+simplejson==3.13.2
