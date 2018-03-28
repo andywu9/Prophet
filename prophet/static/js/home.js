@@ -10,20 +10,27 @@ Number.prototype.formatMoney = function(c, d, t){
  };
 
 $(document).ready(function() {
+    //Retrieve database data
+    var coin_data = JSON.parse(coin_table);
+    var historical_data = JSON.parse(historical_table);
+    data_type = ['pk', 'price', 'market_cap', 'volume', 'price_change_day'];
 
+    //Create container and table elements
     var body = document.getElementsByClassName('table-container')[0];
     var tbl = document.createElement('table');
-    var coin_data = JSON.parse(coin_table);
 
+    //Add table classes
     tbl.classList.add("table");
     tbl.classList.add("table-hover");
-    // tbl.classList.add("table-bordered");
     tbl.classList.add("table-striped");
 
-    tbl.style.width = '100%';
     var tbdy = document.createElement('tbody');
 
+    //Create header row
     var trh = document.createElement('tr');
+    trh.setAttribute('id', 'header-row')
+
+    //Create header cells
     var th1 = document.createElement('th');
     var th2 = document.createElement('th');
     var th3 = document.createElement('th');
@@ -32,15 +39,16 @@ $(document).ready(function() {
     var th6 = document.createElement('th');
     var th7 = document.createElement('th');
 
-    trh.setAttribute('id', 'header-row')
-
+    //Add title text to header cells
     th1.appendChild(document.createTextNode('Coin'));
     th2.appendChild(document.createTextNode('Current Price'));
     th3.appendChild(document.createTextNode('Market Cap'));
     th4.appendChild(document.createTextNode('Volume (24h)'));
     th5.appendChild(document.createTextNode('Price Change (24h)'));
     th6.appendChild(document.createTextNode('Graph'));
+    th7.appendChild(document.createTextNode('Favorite'));
 
+    //Add header cells to header row
     trh.appendChild(th1);
     trh.appendChild(th2);
     trh.appendChild(th3);
@@ -50,12 +58,10 @@ $(document).ready(function() {
     trh.appendChild(th7);
     tbdy.appendChild(trh);
 
-    data_type = ['price', 'market_cap', 'volume', 'price_change_day'];
-
     for (var i = 0; i < 20; i++) {
         var tr = document.createElement('tr');
         var td = document.createElement('td');
-        var coin_name = coin_data[i]['pk'];
+        var coin_name = coin_data[i][data_type[0]];
         tr.setAttribute('id', coin_name);
 
         var cell_div = document.createElement('div');
@@ -65,7 +71,7 @@ $(document).ready(function() {
         td.appendChild(cell_div);
         tr.appendChild(td);
         var data;   
-        for (var j = 0; j < data_type.length; j++) {
+        for (var j = 1; j < data_type.length; j++) {
                 td = document.createElement('td');
                 data = coin_data[i]['fields'][data_type[j]];
 
@@ -98,8 +104,6 @@ $(document).ready(function() {
         graph.setAttribute('height', '100');
 
         //Create Graph
-
-        var historical_data = JSON.parse(historical_table);
         var graph_data = [];
         
         for(data in historical_data[coin_name]) {
@@ -158,7 +162,7 @@ $(document).ready(function() {
         tr.appendChild(tdfav);
         tbdy.appendChild(tr);
     }
-    
+
     tbl.appendChild(tbdy);
     body.appendChild(tbl);
 });
