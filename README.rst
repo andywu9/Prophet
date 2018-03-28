@@ -18,6 +18,80 @@ Moved to settings_.
 
 .. _settings: http://cookiecutter-django.readthedocs.io/en/latest/settings.html
 
+Basic Setup
+-----------
+Run the following commands **in the Prophet directory** in order to setup Prophet on your local machine (assumes working in bash shell)
+
+If you do not have pip3::
+
+    $ sudo apt-get install python3-pip
+    
+Install some requirements::
+
+    $ pip3 install -r requirements.txt
+    $ pip3 install django-debug-toolbar
+    $ pip3 install django-extensions
+    
+Create postgres user and DB::
+
+    $ sudo -u postgres -i
+    $ createuser <YourLinuxUsername>
+    $ createdb prophet
+    $ exit
+
+If postgreSQL did not install properly and you are running Ubuntu/Mint, follow https://gist.github.com/alistairewj/8aaea0261fe4015333ddf8bed5fe91f8 to setup postgreSQL on your machine. You may need to run::
+
+    $ sudo apt-get install software-properties-common python-software-properties 
+
+in order to use the add-apt-repository command.
+
+Run PostgreSQL DB
+
+**Ubuntu/Mint/etc users**::
+
+    $ : sudo service postgresql start (This starts the database)
+    
+**Mac users**::
+
+    $ pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
+    
+Start website::
+
+    $ python3 manage.py runserver
+
+You should now have the website running. Check at **localhost:8000** to view the website.psql prophet
+
+
+Database Sync
+-------------
+
+Migrate Database
+^^^^^^^^^^^^^^^^
+
+* Create a password::
+
+    $ psql prophet
+    $ \c prophet
+    $ \password <yourpassword>
+    $ \q 
+
+* Open the file **base.py**. In this file, find the DATABASE dictionary and add a new kew:value phrase inside the "default" key. The new pair should be **"PASSWORD":"<yourpassword>"**. Back in your bash shell, time to migrate the data::
+
+    $ python3 manage.py makemigrations prophet
+    $ python3 manage.py migrate
+    $ python3 manage.py shell
+    $ import collectData
+    $ collectData.collect()
+    $ quit()
+
+* You should now have data in your database to work with. If you ever want to update the database with the newest data, simply run::
+
+    $ python3 manage.py shell
+    $ import collectData
+    $ collectData.collect()
+    $ quit()
+
+
 Basic Commands
 --------------
 
