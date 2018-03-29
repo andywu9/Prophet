@@ -105,9 +105,18 @@ $(document).ready(function() {
 
         //Create Graph
         var graph_data = [];
+        var time_labels = [];
         
         for(data in historical_data[coin_name]) {
-            graph_data.push(historical_data[coin_name][data]['historical_price']);
+            var point = {
+                x:historical_data[coin_name][data]['datetime'],
+                y:historical_data[coin_name][data]['historical_price'],
+            };
+
+            graph_data.push(point);
+            time_labels.push(historical_data[coin_name][data]['datetime']);
+            //graph_data.push(historical_data[coin_name][data]['historical_price');
+            //time_labels.push(historical_data[coin_name][data]['datetime'])
         }
 
         var ctx = graph.getContext('2d');
@@ -117,8 +126,9 @@ $(document).ready(function() {
 
             // The data for our dataset
             data: {
-                labels: graph_data,
+                labels: time_labels,
                 datasets: [{
+                    fill: false,
                     borderColor: 'rgb(255, 99, 132)',
                     data: graph_data,
                 }]
@@ -133,18 +143,24 @@ $(document).ready(function() {
                 },
                 scales: {
                     xAxes: [{
-                        display: false
+                        type: 'time',
+                        distribution: 'linear',
+                        display: false,
+                        ticks: {
+                            source: 'data',
+                            autoSkip: true,
+                        },
                     }],
                     yAxes: [{
-                        display: false
-                    }]
+                        display: false,
+                    }],
                 },
                 hover: {
                     intersect: false
                 },
                 tooltips: {
                     mode: 'index',
-                }
+                },
             }
         });
 

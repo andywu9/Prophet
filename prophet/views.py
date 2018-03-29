@@ -14,10 +14,10 @@ def home(request):
 	graph_data = {}
 
 	for row in historical_data:
-		del row['datetime']
+		#del row['datetime']
 		if row['name'] in graph_data:
 			graph_data[row['name']].append(row)
 		else:
 			graph_data[row['name']] = [row]
 
-	return render(request, 'pages/home.html', {"coins": coins, "historical": json.dumps(graph_data)})
+	return render(request, 'pages/home.html', {"coins": coins, "historical": json.dumps(graph_data, default=str)})
