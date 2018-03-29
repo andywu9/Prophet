@@ -128,6 +128,7 @@ $(document).ready(function() {
             data: {
                 labels: time_labels,
                 datasets: [{
+                    radius: 0,
                     fill: false,
                     borderColor: 'rgb(255, 99, 132)',
                     data: graph_data,
