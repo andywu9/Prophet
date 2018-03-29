@@ -1,6 +1,5 @@
 from prophet import models
 from prophet import observer
-from prophet import subject
 
 
 # Coin table observer waits for new data updates
@@ -11,7 +10,7 @@ class CoinTableObserver(observer.Observer):
 
     def __init__(self, subject):
         self.my_subject = subject
-        self.my_subject.addObserver(self)
+        self.my_subject.add_observer(self)
 
     def update(self):
         for update in self.my_subject.get_state():

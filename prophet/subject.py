@@ -1,10 +1,13 @@
 # Subject interface
 class Subject():
-    def addObserver(obs):
+    def add_observer(self, obs):
         pass
 
-    def removeObserver(obs):
+    def remove_observer(self, obs):
         pass
 
-    def updateObservers():
+    def update_observers(self):
+        pass
+
+    def get_state(self):
         pass

@@ -1,8 +1,8 @@
-from prophet import models
-from prophet import subject
 import datetime
 import json
 import requests
+from prophet import models
+from prophet import subject
 
 
 # Historical Data Fetcher class collects new coin data
@@ -17,6 +17,17 @@ class HistoricalDataFetcher(subject.Subject):
 
     def __init__(self, url):
         self.api_url = url
+        self.circulating_supply = ""
+        self.datetime = ""
+        self.historical_price = ""
+        self.market_cap = ""
+        self.name = ""
+        self.price_change_day = ""
+        self.price_change_hour = ""
+        self.price_change_week = ""
+        self.rank = ""
+        self.symbol = ""
+        self.volume = ""
 
     # Set all NoneType data to 0
     def filter_data(self):
@@ -50,7 +61,7 @@ class HistoricalDataFetcher(subject.Subject):
         for coin in self.coin_data:
             self.circulating_supply = float(coin["available_supply"])
             self.datetime = datetime.datetime.fromtimestamp(
-                    int(coin["last_updated"]))
+                int(coin["last_updated"]))
             self.historical_price = float(coin["price_usd"])
             self.market_cap = float(coin["market_cap_usd"])
             self.name = coin["name"]
@@ -63,17 +74,17 @@ class HistoricalDataFetcher(subject.Subject):
 
             # Update historical data table
             historical_data = models.Historical(
-                    circulating_supply=self.circulating_supply,
-                    datetime=self.datetime,
-                    historical_price=self.historical_price,
-                    market_cap=self.market_cap,
-                    name=self.name,
-                    volume=self.volume)
+                circulating_supply=self.circulating_supply,
+                datetime=self.datetime,
+                historical_price=self.historical_price,
+                market_cap=self.market_cap,
+                name=self.name,
+                volume=self.volume)
 
             historical_data.save()
             self.update_state()
 
-        self.updateObservers()
+        self.update_observers()
 
     # driver function to collect data from api
     def collect_data(self):
@@ -82,12 +93,12 @@ class HistoricalDataFetcher(subject.Subject):
         self.filter_data()
         self.store_data()
 
-    def addObserver(self, obs):
+    def add_observer(self, obs):
         self.my_observers.append(obs)
 
-    def removeObserver(self, obs):
+    def remove_observer(self, obs):
         self.my_observers.remove(obs)
 
-    def updateObservers(self):
+    def update_observers(self):
         for observer in self.my_observers:
             observer.update()

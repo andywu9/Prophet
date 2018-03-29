@@ -9,7 +9,7 @@ class LSTMObserver(observer.Observer):
 
     def __init__(self, subject):
         self.my_subject = subject
-        self.my_subject.addObserver(self)
+        self.my_subject.add_observer(self)
 
     def update(self):
         pass
