@@ -1,5 +1,7 @@
-from django.core.management.base import BaseCommand, CommandError
-from prophet import coinData as model
+from django.core.management.base import BaseCommand
+from prophet import historicalDataFetcher as fetcher
+from prophet import coinTableObserver as coin_obs
+from prophet import mlObserver as ml_obs
 
 
 # Command to run data collections
@@ -10,6 +12,8 @@ class Command(BaseCommand):
         pass
 
     def handle(self, *args, **options):
-            my_data = model.CoinData()
-            adapted_data = model.CoinDataAdapter(my_data)
-            adapted_data.save()
+        url = "https://api.coinmarketcap.com/v1/ticker/"
+        historical_puller = fetcher.HistoricalDataFetcher(url)
+        coin_obs.CoinTableObserver(historical_puller)
+        ml_obs.MLObserver(historical_puller)
+        historical_puller.collect_data()
