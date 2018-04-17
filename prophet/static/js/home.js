@@ -149,38 +149,23 @@ var loadGraph = function (coin_name, modal, date_restrict) {
                 }],
             },
             hover: {
-                mode: 'nearest',
+                mode: 'index',
                 intersect: false
             },
             tooltips: {
-                mode: 'nearest',
-                interesect: false,
+                mode: 'index',
+                intersect: false,
             },
         }
     });
 };
 
-var loadModalData = function (coin_name, modal) {
-    var modal_table = modal.find("#modal-coin-data").get(0),
-        title_cell = modal.find('#modal-title').get(0),
-        title = document.createElement('h3');
+var loadModalData = function (coin_name) {
+    var modal_table = $("#modal-coin-data").get(0),
+        title = $('h3').get(0);
 
-    title.classList.add('modal-header');
-
-    title.appendChild(document.createTextNode(coin_name));
-    title_cell.appendChild(title);
-
-    
+    title.innerText = coin_name;
 };
-
-//Add favorite buttons that done actually favorite
-$(function () {
-    $(".favstar").hover(function () {
-        $(this).attr('src', 'static/images/GoldStar.png');
-    }, function () {
-        $(this).attr('src', 'static/images/EmptyStar.png');
-    });
-});
 
 var resetCanvas = function (modal) {
     var canvas;
@@ -247,7 +232,7 @@ $(document).ready(function () {
     tbl.classList.add('table');
     tbl.classList.add('table-hover');
     tbl.classList.add('table-striped');
-    tbl.classList.add('table-sorter')
+    tbl.classList.add('table-sorter');
     tbl.setAttribute('id', 'coins');
 
     //Create header row
@@ -351,7 +336,7 @@ $(function () {
         modal.get(0).setAttribute('coin', coin_name);
         modal.css('display', 'block');
         $('#defaultOpen').get(0).click();
-        loadModalData(coin_name, modal);
+        loadModalData(coin_name);
         loadGraph(coin_name, modal);
     });
 
@@ -365,5 +350,14 @@ $(function () {
             modal.css('display', 'none');
             resetCanvas(modal);
         }
+    });
+});
+
+//Add favorite buttons
+$(function () {
+    $(".favstar").hover(function () {
+        $(this).attr('src', 'static/images/GoldStar.png');
+    }, function () {
+        $(this).attr('src', 'static/images/EmptyStar.png');
     });
 });
