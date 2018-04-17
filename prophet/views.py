@@ -11,10 +11,11 @@ def home(request):
 
 	historical_data = historical_data.values()
 
+	# Reformat database to match usage in front-end.
+	# Reorganizes data by grouping rows by coin name and referencing that group with the coin's name as a key
 	graph_data = {}
 
 	for row in historical_data:
-		#del row['datetime']
 		if row['name'] in graph_data:
 			graph_data[row['name']].append(row)
 		else:

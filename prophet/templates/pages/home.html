@@ -7,6 +7,49 @@
 			
 		</div>
 	</div>
+
+	<div id="myModal" class="modal">
+
+	  <!-- Modal content -->
+	  <div class="modal-content">
+	    <table class="modal-table" id="popup-table">
+	    	<tbody>
+	    		<tr>
+	    			<td id="modal-title"></td>
+	    			<td>
+		    			<div class="right-justify">
+	   						<span class="close">&times;</span>
+						</div>
+		    		</td>
+	    		</tr>
+		    	<tr>
+		    		<td></td>
+		    		<td>
+		    			<div class="tab">
+							<button class="tablinks" onclick="openHistory(event, 1)">1d</button>
+							<button class="tablinks" onclick="openHistory(event, 3)">3d</button>
+							<button class="tablinks" onclick="openHistory(event, 7)">1w</button>
+							<button class="tablinks" id="defaultOpen" onclick="openHistory(event, 30)">1m</button>
+							<button class="tablinks" onclick="openHistory(event, 90)">3m</button>
+							<button class="tablinks" onclick="openHistory(event, 180)">6m</button>
+							<button class="tablinks" onclick="openHistory(event, 365)">1y</button>
+						</div>
+		    		</td>
+		    	</tr>
+		    	<tr>
+		    		<td class="modal-table-cell">
+		    			<table id="modal-coin-data">
+							
+		    			</table>
+		    		</td>
+		    		<td class="modal-table-cell" id="modal-graph-cell">
+		    			<canvas class="modal-canvas" id="popup-canvas"></canvas>
+		    		</td>
+		    	</tr>
+	    	</tbody>
+	    </table>
+	  </div>
+	</div>
 {% endblock content %}
 
 
