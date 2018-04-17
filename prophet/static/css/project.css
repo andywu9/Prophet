@@ -64,10 +64,10 @@ th {
 /* Modal Content/Box */
 .modal-content {
     background-color: #fefefe;
-    margin: 10% auto; /* 15% from the top and centered */
+    margin: 5% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
+    width: 75%; /* Could be more or less, depending on screen size */
 }
 
 /* The Close Button */
@@ -93,11 +93,16 @@ th {
   width: 50%;
 }
 
+.modal-table {
+  width: 100%;
+}
+
 /* Style the tab */
 .tab {
     overflow: hidden;
     border: 1px solid #ccc;
     background-color: #f1f1f1;
+    margin-bottom: 5px;
 }
 
 /* Style the buttons that are used to open the tab content */
@@ -158,4 +163,22 @@ table.tablesorter th.tablesorter-headerDesc {
 table.tablesorter th.headerSortDown,
 table.tablesorter th.headerSortUp {
 background-color: #8dbdd8;
+}
+
+.table-header {
+  padding-bottom: 5%;
+  font-size: 14pt;
+}
+
+#modal-coin-data {
+  width: 100%;
+}
+
+#modal-split-row {
+  height: 10%;
+}
+
+.row-header {
+  font-size: 12pt;
+  padding: 4% 0px;
 }

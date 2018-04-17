@@ -100,19 +100,17 @@ var loadGraph = function (coin_name, modal, date_restrict) {
     for (data in historical_data[coin_name]) {
         if (historical_data[coin_name].hasOwnProperty(data)) {
 
-            //skip data that is before desired date
+            //Skip data that is before desired date
             historical_date = new Date(historical_data[coin_name][data].datetime);
-            if (date_restrict !== undefined && historical_date < date_restrict) {
-                continue;
+            if (date_restrict === undefined || historical_date > date_restrict) {
+                point = {
+                    x : new Date(historical_data[coin_name][data].datetime),
+                    y : historical_data[coin_name][data].historical_price,
+                };
+
+                graph_data.push(point);
+                time_labels.push(historical_data[coin_name][data].datetime);
             }
-
-            point = {
-                x : historical_data[coin_name][data].datetime,
-                y : historical_data[coin_name][data].historical_price,
-            };
-
-            graph_data.push(point);
-            time_labels.push(historical_data[coin_name][data].datetime);
         }
     }
 
@@ -143,17 +141,17 @@ var loadGraph = function (coin_name, modal, date_restrict) {
                 xAxes: [{
                     type: 'time',
                     ticks: {
-                        source: 'data',
-                        autoSkip: false,
+                        source: 'auto',
+                        autoSkip: true,
                     },
                 }],
             },
             hover: {
-                mode: 'index',
+                mode: 'nearest',
                 intersect: false
             },
             tooltips: {
-                mode: 'index',
+                mode: 'nearest',
                 intersect: false,
             },
         }
@@ -243,6 +241,7 @@ $(document).ready(function () {
         th = document.createElement('th');
         if (header_titles[i] === 'Price History' || header_titles[i] === 'Favorite') {
             th.setAttribute('data-sorter', false);
+            th.classList.add('no-sorter');
         }
 
         th.appendChild(document.createTextNode(header_titles[i]));
@@ -336,6 +335,7 @@ $(function () {
         modal.get(0).setAttribute('coin', coin_name);
         modal.css('display', 'block');
         $('#defaultOpen').get(0).click();
+        $('#data-tab-button').get(0).click();
         loadModalData(coin_name);
         loadGraph(coin_name, modal);
     });
