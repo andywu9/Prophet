@@ -88,9 +88,12 @@ var createMainTableGraph = function (coin_name, historical_data, ctx) {
 
 var loadGraph = function (coin_name, modal, date_restrict) {
     var historical_data = JSON.parse(historical_table),
+        prediction_data = JSON.parse(prediction_table),
         historical_date,
+        prediction_date,
         point,
         graph_data = [],
+        future_data = [],
         time_labels = [],
         data,
         canvas,
@@ -116,6 +119,22 @@ var loadGraph = function (coin_name, modal, date_restrict) {
         }
     }
 
+    for (data in prediction_data[coin_name]) {
+        if (prediction_data[coin_name].hasOwnProperty(data)) {
+
+            //skip data that is before desired date
+            prediction_date = new Date(prediction_data[coin_name][data].datetime);
+
+            point = {
+                x : prediction_data[coin_name][data].datetime,
+                y : prediction_data[coin_name][data].predicted_price,
+            };
+
+            future_data.push(point);
+            time_labels.push(prediction_data[coin_name][data].datetime);
+        }
+    }
+
     canvas = modal.find('canvas').get(0);
     ctx = canvas.getContext('2d');
     chart = new Chart(ctx, {
@@ -130,6 +149,12 @@ var loadGraph = function (coin_name, modal, date_restrict) {
                 fill: false,
                 borderColor: 'rgb(255, 99, 132)',
                 data: graph_data,
+            },
+            {
+                radius: 0,
+                fill: false,
+                borderColor: 'rgb(0, 0, 255)',
+                data: future_data,
             }]
         },
 
