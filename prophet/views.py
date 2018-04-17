@@ -13,18 +13,18 @@ def home(request):
     symbols = models.Coin.objects.all()
     historical_data = models.Historical.objects.all().order_by('datetime').values()
     predictive_data = models.Prediction.objects.all().order_by('datetime').values()
-    descriptions = models.Description.objects.all()
+    #descriptions = models.Description.objects.all()
 
     # Store pairings of coin symbol name to description
-    descript = {}
-    for item in descriptions.values():
-        descript[item["name"]] = item["description"]
+    # descript = {}
+    # for item in descriptions.values():
+    #     descript[item["name"]] = item["description"]
 
 
-    #Store pairings of coin name to symbols
-    symbol = {}
-    for row in symbols.values():
-        symbol[row['name']] = row['symbol']
+    # #Store pairings of coin name to symbols
+    # symbol = {}
+    # for row in symbols.values():
+    #     symbol[row['name']] = row['symbol']
 
     # Reformat database to match usage in front-end.
     # Reorganizes data by grouping rows by coin name 
@@ -47,7 +47,7 @@ def home(request):
 
     # send the information to the front end
     return render(request, 'pages/home.html',
-                  {"coins": coins, "symbols": json.dumps(symbol, default=str),
-                   "descriptions": json.dumps(descript, default=str),
+                  {"coins": coins, #"symbols": json.dumps(symbol, default=str),
+                   #"descriptions": json.dumps(descript, default=str),
                    "historical": json.dumps(graph_data, default=str),
                    "predictive": json.dumps(pred_data, default=str)})
