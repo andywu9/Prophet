@@ -97,9 +97,13 @@
 			</div>
 			<div id="info" class="tab-pane">
 				<div id="coin-desc">
-
+					<h3>Coin Information</h3>
+					<p id="coin-desc-text"></p>
 				</div>
 				<div id="algo-desc">
+					<h3>Algorithm Information</h3>
+					<p>Currently, we're using a linear regression in order to predict future coin prices. Past
+					coin prices are supplied to the regression in order to predict future prices.</p>
 				</div>
 			</div>
 		</div>
@@ -117,6 +121,8 @@
 		var historical_table = "{{ historical | safe | escapejs }}";
 		var prediction_table = "{{ predictive | safe | escapejs }}";
 		var data = "{{ data | safe | escapejs }}";
+		var symbols = "{{ symbols | safe | escapejs }}";
+		var descriptions = "{{ descriptions | safe | escapejs }}";
 	</script>
 
 {% endblock javascript %}

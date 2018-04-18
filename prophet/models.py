@@ -45,3 +45,7 @@ class Coin(models.Model):
     price_change_week = models.DecimalField(max_digits=19,
                                             decimal_places=2, default=0)
     volume = models.DecimalField(max_digits=19, decimal_places=2, default=0)
+
+class Description(models.Model):
+    name = models.CharField(max_length=30, default="")
+    description = models.TextField(default="")

@@ -143,12 +143,14 @@ var loadGraph = function (coin_name, modal, date_restrict) {
         data: {
             labels: time_labels,
             datasets: [{
+                label: "Historical Price",
                 radius: 0,
                 fill: false,
                 borderColor: 'rgb(255, 99, 132)',
                 data: graph_data,
             },
             {
+                label: "Predicted Price",
                 radius: 0,
                 fill: false,
                 borderColor: 'rgb(0, 0, 255)',
@@ -161,7 +163,8 @@ var loadGraph = function (coin_name, modal, date_restrict) {
         options: {
             responsive: true,
             legend: {
-                display: false,
+                display: true,
+                position: "bottom",
             },
             scales: {
                 xAxes: [{
@@ -225,6 +228,12 @@ var loadModalData = function (coin_name) {
     document.getElementById('volume_change_24').innerText = change_data[7]  === 'NA' ? change_data[7] : '$' + parseFloat(change_data[7]).formatMoney(2);
     document.getElementById('price_change_6').innerText = change_data[4] === 'NA' ? change_data[4] : change_data[4] + '%';
     document.getElementById('price_change_12').innerText = change_data[6] === 'NA' ? change_data[6] : change_data[6] + '%';
+
+    // Retrieve the coin's description for the information tab
+    var symbol = JSON.parse(symbols)[coin_name];
+    var description = JSON.parse(descriptions)[symbol];
+    var desc = $('#coin-desc-text').get(0);
+    desc.innerText = description;
 };
 
 $(document).ready(function () {
@@ -369,6 +378,7 @@ $(function () {
         modal.get(0).setAttribute('coin', coin_name);
         modal.css('display', 'block');
         $('#defaultOpen').get(0).click();
+        resetCanvas(modal);
         loadModalData(coin_name);
         loadGraph(coin_name, modal);
     });
