@@ -25,7 +25,7 @@ class MLManager():
         # for each coin we generate predictions
         for coin in self.historical_data:
             # coins withless than 1000 data points use linreg
-            if len(self.historical_data[coin]) <= 1000:
+            if len(self.historical_data[coin]) <= 2000:
                 ml_service.set_strategy(linear_strategy)
             else:
                 ml_service.set_strategy(neural_strategy)

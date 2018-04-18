@@ -22,18 +22,19 @@ class MLService(subject.Subject):
     # store the new predictions for observer access
     def update_state(self, results):
         self.my_predictions = []
-        for item in results:
-            my_predic = {"name": self.coin_name,
-                         "predicted_price": float(item[1]),
-                         "datetime": datetime.datetime.strptime(item[0], '%Y-%m-%d %H:%M:%S')}
-            self.my_predictions.append(my_predic)
+        if results != None:
+            for item in results:
+                my_predic = {"name": self.coin_name,
+                             "predicted_price": float(item[1]),
+                             "datetime": datetime.datetime.strptime(item[0], '%Y-%m-%d %H:%M:%S')}
+                self.my_predictions.append(my_predic)
 
     def get_state(self):
         return self.my_predictions
 
     # take the data to run through the ml and convert to a csv
     def run(self):
-        with open('prophet/data.csv', 'w+') as csvfile:
+        with open('data.csv', 'w+') as csvfile:
             for data in self.my_data:
                 csvfile.write(self.coin_name + ',')
                 for i in range(1, 5):
@@ -42,7 +43,7 @@ class MLService(subject.Subject):
                     else:
                         csvfile.write(str(data[i]) + '\n')
         csvfile.close()
-        results = self.my_strategy.execute('prophet/data.csv') # execute strategy
+        results = self.my_strategy.execute('data.csv') # execute strategy
 
         # update the observers
         self.update_state(results)
