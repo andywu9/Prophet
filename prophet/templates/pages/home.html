@@ -117,6 +117,9 @@
 {% block javascript %}
 	{{block.super}}
 	
+	<script src="{% static 'js/coinmodal.js' %}"></script>
+	<script src="{% static 'js/moneyformat.js' %}"></script>
+	<script src="{% static 'js/maintable.js' %}"></script>
 	<script src="{% static 'js/home.js' %}"></script>
 	<script>
 		var coin_table = "{{ coins | safe | escapejs }}";
