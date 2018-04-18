@@ -141,20 +141,20 @@ th {
   font-weight: bold;
 }
 
-table.tablesorter th.tablesorter-headerUnSorted {
+table.tablesorter th.tablesorter-headerUnSorted:not(.no-sorter){
     background-image: url('http://tablesorter.com/themes/blue/bg.gif');
     background-repeat: no-repeat;
     background-position: center right;
     cursor: pointer;
 }
 
-table.tablesorter th.tablesorter-headerAsc {
+table.tablesorter th.tablesorter-headerAsc:not(.no-sorter) {
     background-image: url(http://tablesorter.com/themes/blue/asc.gif);
     background-repeat: no-repeat;
     background-position: center right;
 }
 
-table.tablesorter th.tablesorter-headerDesc {
+table.tablesorter th.tablesorter-headerDesc:not(.no-sorter) {
     background-image: url(http://tablesorter.com/themes/blue/desc.gif);
     background-repeat: no-repeat;
     background-position: center right;
@@ -166,7 +166,7 @@ background-color: #8dbdd8;
 }
 
 .table-header {
-  padding-bottom: 5%;
+  padding-bottom: 2%;
   font-size: 14pt;
 }
 
@@ -181,4 +181,8 @@ background-color: #8dbdd8;
 .row-header {
   font-size: 12pt;
   padding: 4% 0px;
+}
+
+ul {
+  width: 100%;
 }

@@ -153,7 +153,8 @@ var loadGraph = function (coin_name, modal, date_restrict) {
                 fill: false,
                 borderColor: 'rgb(0, 0, 255)',
                 data: future_data,
-            }]
+            }
+            ]
         },
 
         // Configuration options go here
@@ -183,17 +184,10 @@ var loadGraph = function (coin_name, modal, date_restrict) {
     });
 };
 
-var loadModalData = function (coin_name) {
-    var modal_table = $("#modal-coin-data").get(0),
-        title = $('h3').get(0);
-
-    title.innerText = coin_name;
-};
-
 var resetCanvas = function (modal) {
     var canvas;
 
-    modal.find('canvas').get(0).remove();
+    modal.find('canvas').remove();
     modal.find('iframe').remove();
     canvas = document.createElement('canvas');
 
@@ -216,6 +210,21 @@ var openHistory = function (evt, days_back) {
     }
 
     evt.currentTarget.className += " active";
+};
+
+var loadModalData = function (coin_name) {
+    var modal_table = $("#modal-coin-data").get(0),
+        title = $('h3').get(0);
+    title.innerText = coin_name;
+    var change_data = JSON.parse(data)[coin_name];
+    document.getElementById('price_change_24').innerText = change_data[0] === 'NA' ? change_data[0] : change_data[0] + '%';
+    document.getElementById('price_change_1').innerText = change_data[1] === 'NA' ? change_data[1] : change_data[1] + '%';
+    document.getElementById('volume_change_1').innerText = change_data[2] === 'NA' ? change_data[2] : '$' + parseFloat(change_data[2]).formatMoney(2);
+    document.getElementById('volume_change_6').innerText = change_data[3]  === 'NA' ? change_data[3] : '$' + parseFloat(change_data[3]).formatMoney(2);
+    document.getElementById('volume_change_12').innerText = change_data[5]  === 'NA' ? change_data[5] : '$' + parseFloat(change_data[5]).formatMoney(2);
+    document.getElementById('volume_change_24').innerText = change_data[7]  === 'NA' ? change_data[7] : '$' + parseFloat(change_data[7]).formatMoney(2);
+    document.getElementById('price_change_6').innerText = change_data[4] === 'NA' ? change_data[4] : change_data[4] + '%';
+    document.getElementById('price_change_12').innerText = change_data[6] === 'NA' ? change_data[6] : change_data[6] + '%';
 };
 
 $(document).ready(function () {
@@ -360,7 +369,6 @@ $(function () {
         modal.get(0).setAttribute('coin', coin_name);
         modal.css('display', 'block');
         $('#defaultOpen').get(0).click();
-        $('#data-tab-button').get(0).click();
         loadModalData(coin_name);
         loadGraph(coin_name, modal);
     });
@@ -368,14 +376,21 @@ $(function () {
     $('.close').click(function () {
         modal.css('display', 'none');
         resetCanvas(modal);
+        $('#data-tab-button').click()
     });
 
     $(window).click(function (event) {
         if (event.target.id === modal.attr('id')) {
             modal.css('display', 'none');
             resetCanvas(modal);
+            $('#data-tab-button').click();
         }
     });
+});
+
+//Bootstrap fix for modal tabs
+$(function () {
+    $()
 });
 
 //Add favorite buttons
