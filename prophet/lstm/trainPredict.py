@@ -48,11 +48,12 @@ def train_predict(train_file_arg):
 	# Add 5 minutes for prediction to be observation
 	last_datetime = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(last_datetime_epoch))
 	last_datetime = datetime.strptime(last_datetime, '%Y-%m-%d %H:%M:%S')
-	last_datetime = last_datetime + timedelta(seconds=300)
-	last_datetime = last_datetime.strftime('%Y-%m-%d %H:%M:%S')
+	new_datetime = last_datetime + timedelta(seconds=300)
+	new_datetime_epoch = time.mktime(new_datetime.timetuple())
+	new_datetime = new_datetime.strftime('%Y-%m-%d %H:%M:%S')
 
 	# Concatenate datetime and price forecast
-	new_entry = 'coin_name,' + str(last_datetime_epoch) + ',' + str(next_timestamp_raw) + ',coin_supply' + ',coin_mc' + '\n'
+	new_entry = 'coin_name,' + str(new_datetime_epoch) + ',' + str(next_timestamp_raw) + ',coin_supply' + ',coin_mc' + '\n'
 
 	# Write to CSV file of new prediction
 	fd = open(train_file,'a')
@@ -60,4 +61,4 @@ def train_predict(train_file_arg):
 	fd.close()
 
 	# Return new prediction
-	return [last_datetime, str(next_timestamp_raw)]
+	return [new_datetime, str(next_timestamp_raw)]
