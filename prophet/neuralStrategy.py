@@ -1,7 +1,8 @@
-from prophet import strategy as strat
-
+import strategy as strat
+import lstm.runPrediction as runPrediction
 
 # NeuralStrategy will execute the neural net
 class NeuralStrategy(strat.Strategy):
+    # run the neural net and pass back data
     def execute(self, filename):
-        pass # run the NEURAL net and pass back data
+        return runPrediction.execute(filename, 12)

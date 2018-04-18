@@ -26,6 +26,7 @@ class MLFetcher():
 
     # pass the stored data to the manager to run the machine learning
     def run(self):
+        models.Prediction.objects.all().delete()
         ml_manager = ml_man.MLManager()
         self.collect_data()
         ml_manager.store_data(self.historical_data)
