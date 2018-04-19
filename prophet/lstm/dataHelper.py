@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 
 def load_timeseries(filename, params):
-    """Load time series dataset"""
+    # Load time series dataset
 
     series = pd.read_csv(filename, sep=',', header=0, index_col=0, usecols=[1, 2], squeeze=True)
     data = series.values
@@ -48,7 +48,7 @@ def load_timeseries(filename, params):
     return [x_train, y_train, x_test, y_test, x_test_raw, y_test_raw, last_raw, last, last_datetime_epoch]
 
 def normalize_windows(window_data):
-    """Normalize data"""
+    # Normalize data
 
     normalized_data = []
     for window in window_data:

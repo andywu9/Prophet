@@ -6,7 +6,7 @@ from lstm import dataHelper
 
 
 def train_predict(train_file_arg):
-    """Train and predict time series data"""
+    # Train and predict time series data
 
     # Load command line arguments
     train_file = train_file_arg
@@ -42,7 +42,7 @@ def train_predict(train_file_arg):
     next_timestamp_raw = (next_timestamp[0] + 1) * last_window_raw[0][0]
     print('The next time stamp forecasting is: {}'.format(next_timestamp_raw))
 
-    # Add 5 minutes for prediction to be observation
+    # Add 5 minutes for a new timestamp of predictions
     last_datetime = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(last_datetime_epoch))
     last_datetime = datetime.strptime(last_datetime, '%Y-%m-%d %H:%M:%S')
     new_datetime = last_datetime + timedelta(seconds=300)

@@ -4,7 +4,7 @@ from keras.layers.recurrent import LSTM
 from keras.models import Sequential
 
 def rnn_lstm(layers, params):
-    """Build RNN (LSTM) model on top of Keras and Tensorflow"""
+    # Build RNN (LSTM) model on top of Keras and Tensorflow
 
     model = Sequential()
     model.add(LSTM(input_shape=(layers[1], layers[0]), output_dim=layers[1], return_sequences=True))
@@ -18,7 +18,7 @@ def rnn_lstm(layers, params):
     return model
 
 def predict_next_timestamp(model, history):
-    """Predict the next time stamp given a sequence of history data"""
+    # Predict the next time stamp given a sequence of history data
 
     prediction = model.predict(history)
     prediction = np.reshape(prediction, (prediction.size,))
