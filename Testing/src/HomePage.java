@@ -21,7 +21,7 @@ public class HomePage {
 	
 	@BeforeClass
 	public static void openBrowser() {
-		System.setProperty("webdriver.chrome.driver", "/home/igor/Downloads/chromedriver_linux64 (1)/chromedriver");
+		System.setProperty("webdriver.chrome.driver", "chromedriver");
 		driver = new ChromeDriver();
 		driver.get("localhost:8000");
 		System.out.println("\nTesting Home page");

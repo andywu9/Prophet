@@ -19,7 +19,7 @@ public class SignInPage {
 	
 	@BeforeClass
 	public static void openBrowser() {
-		System.setProperty("webdriver.chrome.driver", "/home/igor/Downloads/chromedriver_linux64 (1)/chromedriver");
+		System.setProperty("webdriver.chrome.driver", "chromedriver");
 		driver = new ChromeDriver();
 		driver.get("http://localhost:8000/accounts/login/");
 		System.out.println("\nTesting Sign In page");
