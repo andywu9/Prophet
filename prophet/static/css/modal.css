@@ -1,7 +1,9 @@
+/* Split the modal in half evenly*/
 .modal-table-cell {
   width: 50%;
 }
 
+/* Ensure modal table spans entire modal content box */
 .modal-table {
   width: 100%;
 }
@@ -50,6 +52,7 @@
   font-weight: bold;
 }
 
+/* Table sorter graphics, exclude graph column*/
 table.tablesorter th.tablesorter-headerUnSorted:not(.no-sorter){
     background-image: url('http://tablesorter.com/themes/blue/bg.gif');
     background-repeat: no-repeat;
@@ -78,15 +81,17 @@ background-color: #8dbdd8;
   padding-bottom: 2%;
   font-size: 14pt;
 }
-
+/* Ensure the coin data table spans the whole cell */
 #modal-coin-data {
   width: 100%;
 }
 
+/* Spread the rows out */
 #modal-split-row {
   height: 10%;
 }
 
+/* Header styling for the data table */
 .row-header {
   font-size: 12pt;
   padding: 4% 0px;

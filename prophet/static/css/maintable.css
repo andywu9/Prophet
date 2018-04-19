@@ -1,7 +1,9 @@
+/* Basic styling for the main table*/
 .table {
 	margin-top: 3%;
 }
 
+/* Override some bootstrap styles with !important flag */
 #header-row {
     background-color: #6da5ff!important;
 }
@@ -10,20 +12,12 @@
     border: 1px solid black!important;
 }
 
-.favstar {
-	height: 2%;
-}
-
-.favcell {
-	text-align: center;
-	vertical-align: center;
-}
-
 th {
 	text-align: left;
-  vertical-align: middle !important;
+ 	vertical-align: middle !important;
 }
 
+/* Stop text from wrapping */
 .nowrap {
 	float: left;
 	white-space: nowrap;

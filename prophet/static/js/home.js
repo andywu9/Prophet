@@ -4,16 +4,18 @@
 /*global coin_table, createMainTableGraph, createFavoriteCell, resetCanvas, loadModalData, loadGraph */
 
 
+/*
+    This function creates the main page data table, including creating HTML elements,
+    populating the elements with data, and creating and populating the graph. This does too much, separate
+    the code better. 
+*/
 $(document).ready(function () {
-    /*
-        This function creates the main page data table, including creating HTML elements,
-        populating the elements with data, and creating and populating the graph. This does too much, separate
-        the code better. 
-    */
-
-    //Retrieve database data
+        // Retrieve data from backend
     var coin_data = JSON.parse(coin_table),
+
+        // The keys to access the different data types in coin data
         data_type = ['pk', 'price', 'market_cap', 'volume', 'price_change_day'],
+
         tbdy = document.createElement('tbody'),
         thead = document.createElement('thead'),
         trh = document.createElement('tr'),
@@ -46,7 +48,9 @@ $(document).ready(function () {
     //Create header cells
     for (i = 0; i < header_titles.length; i += 1) {
         th = document.createElement('th');
-        if (header_titles[i] === 'Price History' || header_titles[i] === 'Favorite') {
+
+        // Prevent column sorting for price history column
+        if (header_titles[i] === 'Price History') {
             th.setAttribute('data-sorter', false);
             th.classList.add('no-sorter');
         }
@@ -100,6 +104,7 @@ $(document).ready(function () {
             tr.appendChild(td);
         }
 
+        // Add canvas to cell
         tdgraph = document.createElement('td');
         graph = document.createElement('canvas');
         graph.classList.add('graph');
@@ -130,9 +135,16 @@ $(function () {
     $('#coins').tablesorter();
 });
 
-//Clickable modal
+/*
+    This function add the ability to click each row in the table
+    and have a modal appear. It also allows the user to close the modal
+    if they click the 'x' button or outside the modal window.
+
+*/
 $(function () {
     var modal = $('#myModal');
+
+    // Add 'clickability' to all rows in the table
     $('.clickable-row').click(function () {
         var coin_name = this.id;
         modal.get(0).setAttribute('coin', coin_name);
@@ -143,26 +155,19 @@ $(function () {
         loadGraph(coin_name, modal);
     });
 
+    // Close modal if 'x' clicked
     $('.close').click(function () {
         modal.css('display', 'none');
         resetCanvas(modal);
         $('#data-tab-button').click();
     });
 
+    // Close modal if outside modal clicked
     $(window).click(function (event) {
         if (event.target.id === modal.attr('id')) {
             modal.css('display', 'none');
             resetCanvas(modal);
             $('#data-tab-button').click();
         }
-    });
-});
-
-//Add favorite buttons
-$(function () {
-    $(".favstar").hover(function () {
-        $(this).attr('src', 'static/images/GoldStar.png');
-    }, function () {
-        $(this).attr('src', 'static/images/EmptyStar.png');
     });
 });
