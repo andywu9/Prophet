@@ -16,6 +16,7 @@ public class AboutPage {
 	
 	@BeforeClass
 	public static void openBrowser() {
+		//opens up chrome window and goes to about page
 		System.setProperty("webdriver.chrome.driver", "chromedriver");
 		driver = new ChromeDriver();
 		driver.get("http://127.0.0.1:8000/about");
@@ -25,27 +26,33 @@ public class AboutPage {
 	@Test
 	public void testProphet() {
 		try {
+			//get the prophet container
 	        element = driver.findElement(By.cssSelector("body > div.container > div > div > div:nth-child(1) > div:nth-child(1)"));
 	    } catch (Exception e) {
 	    }
+		//make sure that it is there
 		Assert.assertNotNull(element);
 	}
 	
 	@Test
 	public void testWhyOpenSource() {
 		try {
+			//get the Why Open Source container
 			element = driver.findElement(By.cssSelector("body > div.container > div > div > div:nth-child(1) > div:nth-child(2)"));
 		} catch (Exception e) {
 	    }
+		//make sure that it is there
 		Assert.assertNotNull(element);
 	}
 	
 	@Test
 	public void testAlgorithm() {
 		try {
+			//get the Algorithm container
 			element = driver.findElement(By.cssSelector("body > div.container > div > div > div:nth-child(1) > div:nth-child(3)"));
 		} catch (Exception e) {
 	    }
+		//make sure that it is there
 		Assert.assertNotNull(element);
 	}
 	
@@ -55,12 +62,14 @@ public class AboutPage {
 	        element = driver.findElement(By.cssSelector("body > div.container > div > div > div:nth-child(2) > div"));
 		} catch (Exception e) {
 	    }
+		//make sure that it is there
 		Assert.assertNotNull(element);
 	}
 
 	
 	@AfterClass
 	public static void closeBrower() {
+		//close the window
 		driver.quit();
 		System.out.println("\nEnding About Page Test");
 	}
