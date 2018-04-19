@@ -1,7 +1,7 @@
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from prophet import historicalDataFetcher as fetcher
 from prophet import coinTableObserver as coin_obs
-from prophet import lstmObserver as lstm_obs
+from prophet import mlObserver as ml_obs
 
 
 class Command(BaseCommand):
@@ -15,6 +15,6 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         url = "https://api.coinmarketcap.com/v1/ticker/"
         historical_puller = fetcher.HistoricalDataFetcher(url)
-        current_coin_table = coin_obs.CoinTableObserver(historical_puller)
-        lstm = lstm_obs.LSTMObserver(historical_puller)
+        coin_obs.CoinTableObserver(historical_puller)
+        ml_obs.MLObserver(historical_puller)
         historical_puller.collect_data()

@@ -10,4 +10,4 @@ class Subject():
         pass
 
     def get_state(self):
-        pass
+    	pass

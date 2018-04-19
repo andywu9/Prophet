@@ -81,6 +81,7 @@ class HistoricalDataFetcher(subject.Subject):
                 name=self.name,
                 volume=self.volume)
 
+
             historical_data.save()
             self.update_state()
 
