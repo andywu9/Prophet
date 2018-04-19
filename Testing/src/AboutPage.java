@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 
 public class AboutPage {
@@ -16,7 +16,8 @@ public class AboutPage {
 	
 	@BeforeClass
 	public static void openBrowser() {
-		driver = new FirefoxDriver();
+		System.setProperty("webdriver.chrome.driver", "/home/igor/Downloads/chromedriver_linux64 (1)/chromedriver");
+		driver = new ChromeDriver();
 		driver.get("http://127.0.0.1:8000/about");
 		System.out.println("\nTesting About page");
 	}

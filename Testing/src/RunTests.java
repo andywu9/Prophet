@@ -4,7 +4,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({HomePage.class,AboutPage.class,SignUpPage.class})
+@SuiteClasses({HomePage.class,AboutPage.class,SignUpPage.class,SignInPage.class})
 public class RunTests {
 	
 }
