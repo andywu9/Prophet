@@ -18,13 +18,13 @@ class MLManager():
     # data based on the data size
     def run(self):
         ml_service = ml_serv.MLService()
-        pred.PredictionObserver(ml_service)
+        pred.PredictionObserver(ml_service) # attach prediction observer
         linear_strategy = linear.LinearStrategy()
         neural_strategy = neural.NeuralStrategy()
 
-        # for each coin we generate predictions
+        # for each coin we set which strategy should be run
         for coin in self.historical_data:
-            # coins withless than 1000 data points use linreg
+            # coins withless than 2000 data points use linreg
             if len(self.historical_data[coin]) <= 2000:
                 ml_service.set_strategy(linear_strategy)
             else:
@@ -32,4 +32,4 @@ class MLManager():
 
             # set coin name and the data
             ml_service.set_data(self.historical_data[coin][0][0], self.historical_data[coin])
-            ml_service.run()
+            ml_service.run() # exceute the service

@@ -28,6 +28,7 @@ def execute_linreg(timeseries_csv_filename):
     forecast_out = int(len(df) / 2)
     if forecast_out <= 1: # no predictions can be made in this case
         return[]
+
     # data set up
     df['Prediction'] = df[['Adj. Close']].shift(-forecast_out)
     X = np.array(df.drop(['Prediction'], 1))

@@ -13,8 +13,13 @@ class Command(BaseCommand):
     # Create subject to fetch coin data and attach observers
     # to update database and ML predictions
     def handle(self, *args, **options):
+        # create historical subject supplying api
         url = "https://api.coinmarketcap.com/v1/ticker/"
         historical_puller = fetcher.HistoricalDataFetcher(url)
+
+        # attach observers to the historical subject
         coin_obs.CoinTableObserver(historical_puller)
         ml_obs.MLObserver(historical_puller)
+
+        # initiate data collection
         historical_puller.collect_data()

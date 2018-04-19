@@ -5,7 +5,7 @@ from prophet import models
 
 # Script to generate descriptions for each coin and save in db
 
-# Load all coins from cryptocompare
+# Load all coins from cryptocompare api
 response = requests.get("https://min-api.cryptocompare.com/data/all/coinlist")
 coin_data = json.loads(response.text)
 
@@ -14,7 +14,7 @@ for coin in coin_data["Data"].keys():
     name = coin_data["Data"][str(coin)]["Symbol"]
     idd = coin_data["Data"][str(coin)]["Id"]
 
-    # Using the id find the coin info from api
+    # Using the id find the coin info from the api
     url = "https://www.cryptocompare.com/api/data/coinsnapshotfullbyid/?id=" + str(idd)
     resp = requests.get(url)
     descript = json.loads(resp.text)
@@ -25,7 +25,7 @@ for coin in coin_data["Data"].keys():
     description.strip("|")
     description.strip("")
 
-    # save the description
+    # save the description in the descriptions table
     descrip = models.Description(name=name,
                                  description=description)
     descrip.save()

@@ -1,13 +1,12 @@
 import simplejson as json
 from django.core import serializers
 from django.shortcuts import render
-from prophet import models
 from django.db.models import F
+from prophet import models
+
 
 # home view takes the information from the backend and sends it to the
 # front end
-
-
 def home(request):
 
     # Obtain data from the back end
@@ -40,6 +39,14 @@ def home(request):
         else:
             graph_data[row['name']] = [row]
 
+    # Same process as above but for predictions
+    pred_data = {}
+    for row in predictive_data:
+        if row['name'] in pred_data:
+            pred_data[row['name']].append(row)
+        else:
+            pred_data[row['name']] = [row]
+
     # Store price and volume changes for 1,6,12,24 hours
     changes = {}
     minutes = [12, 72, 144, 288]
@@ -70,14 +77,6 @@ def home(request):
                         str(round((current_price - old_price) / old_price * 100, 2)))
                 else:
                     changes[coin_name].append("NA")
-
-    # Same process as above but for predictions
-    pred_data = {}
-    for row in predictive_data:
-        if row['name'] in pred_data:
-            pred_data[row['name']].append(row)
-        else:
-            pred_data[row['name']] = [row]
 
     # send the information to the front end
     return render(request, 'pages/home.html',
