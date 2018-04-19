@@ -32,7 +32,7 @@ class HistoricalDataFetcher(subject.Subject):
     # Set all NoneType data to 0
     def filter_data(self):
 
-    	# Iterate for each coin and data type per coin
+        # Iterate for each coin and data type per coin
         for coin in self.coin_data:
             for value in coin:
                 if coin[value] is None:

@@ -3,7 +3,7 @@ import pandas as pd
 import timestring
 
 from sklearn.linear_model import LinearRegression
-from sklearn import preprocessing, cross_validation
+from sklearn import preprocessing, model_selection
 from prophet import strategy as strat
 
 # LinearStrategy will execute the linear regression
@@ -38,7 +38,7 @@ def execute_linreg(timeseries_csv_filename):
     y = y[:-forecast_out]
 
     # split data
-    X_train, X_test, y_train, y_test = cross_validation.train_test_split(X, y, test_size=0.2)
+    X_train, X_test, y_train, y_test = model_selection.train_test_split(X, y, test_size=0.2)
 
     # execute linear regression
     clf = LinearRegression()

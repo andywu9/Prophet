@@ -2,16 +2,21 @@ import simplejson as json
 from django.core import serializers
 from django.shortcuts import render
 from prophet import models
+from django.db.models import F
 
 # home view takes the information from the backend and sends it to the
 # front end
+
+
 def home(request):
 
     # Obtain data from the back end
     json_serializer = serializers.get_serializer("json")()
-    coins = json_serializer.serialize(models.Coin.objects.all().order_by('rank'), ensure_ascii=True)
+    coins = json_serializer.serialize(
+        models.Coin.objects.all().order_by('rank'), ensure_ascii=True)
     symbols = models.Coin.objects.all()
-    historical_data = models.Historical.objects.all().order_by('datetime').values()
+    historical_data = models.Historical.objects.annotate(
+        idmod2=F('id') % 2).filter(idmod2=0).order_by('datetime').values()
     predictive_data = models.Prediction.objects.all().order_by('datetime').values()
     descriptions = models.Description.objects.all()
 
@@ -43,7 +48,8 @@ def home(request):
     # store result in changes
     for row in symbols.values():
         coin_name = row['name']
-        changes[coin_name] = [str(row['price_change_day']), str(row['price_change_hour'])]
+        changes[coin_name] = [
+            str(row['price_change_day']), str(row['price_change_hour'])]
 
         for minute in minutes:
             if coin_name in graph_data.keys() and len(graph_data[coin_name]) > minute:
@@ -56,12 +62,14 @@ def home(request):
             # which are not provided by the api
             if minute == 72 or minute == 144:
                 if coin_name in graph_data.keys() and len(graph_data[coin_name]) > minute:
-                    current_price = graph_data[coin_name][-1]["historical_price"]
-                    old_price = graph_data[coin_name][-minute]["historical_price"]
-                    changes[coin_name].append(str(round((current_price - old_price) / old_price * 100, 2)))
+                    current_price = graph_data[
+                        coin_name][-1]["historical_price"]
+                    old_price = graph_data[
+                        coin_name][-minute]["historical_price"]
+                    changes[coin_name].append(
+                        str(round((current_price - old_price) / old_price * 100, 2)))
                 else:
                     changes[coin_name].append("NA")
-
 
     # Same process as above but for predictions
     pred_data = {}
