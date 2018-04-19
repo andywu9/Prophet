@@ -32,8 +32,11 @@ class MLService(subject.Subject):
     def get_state(self):
         return self.my_predictions
 
-    # take the data to run through the ml and convert to a csv
+    # method to take the data to run through the ml and convert to a csv
+    # and execute the strategy supplying the csv
     def run(self):
+
+        # convert to csv and save data
         with open('data.csv', 'w+') as csvfile:
             for data in self.my_data:
                 csvfile.write(self.coin_name + ',')
