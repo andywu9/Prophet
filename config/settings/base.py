@@ -117,10 +117,10 @@ MANAGERS = ADMINS
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "proph",
+        "NAME": "prophet_current",
         "HOST": "localhost",
         "PORT": "5432",
-        "PASSWORD": "test1234",
+        # "PASSWORD": "test1234",
     }
 }
 DATABASES['default']['ATOMIC_REQUESTS'] = True
