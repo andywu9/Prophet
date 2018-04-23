@@ -32,6 +32,10 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # raven sentry client
 # See https://docs.sentry.io/clients/python/integrations/django/
 INSTALLED_APPS += ['raven.contrib.django.raven_compat', ]
+# Use Whitenoise to serve static files
+# See: https://whitenoise.readthedocs.io/
+WHITENOISE_MIDDLEWARE = ['whitenoise.middleware.WhiteNoiseMiddleware', ]
+MIDDLEWARE = WHITENOISE_MIDDLEWARE + MIDDLEWARE
 RAVEN_MIDDLEWARE = ['raven.contrib.django.raven_compat.middleware.SentryResponseErrorIdMiddleware']
 MIDDLEWARE = RAVEN_MIDDLEWARE + MIDDLEWARE
 # opbeat integration
@@ -107,7 +111,7 @@ INSTALLED_APPS += ['gunicorn', ]
 
 # Static Assets
 # ------------------------
-
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # STATIC_URL = 'https://s3.amazonaws.com/%s/static/' % AWS_STORAGE_BUCKET_NAME
 # STATICFILES_STORAGE = 'config.settings.production.StaticRootS3BotoStorage'
 # See: https://github.com/antonagestam/collectfast
