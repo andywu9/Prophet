@@ -26,3 +26,7 @@ raven==6.5.0
 # Opbeat agent for performance monitoring
 # -----------------------------------------
 opbeat==3.6.1
+
+# Whitenoise for static files
+# -----------------------------------------
+whitenoise==3.3.1
