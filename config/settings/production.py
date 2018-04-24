@@ -232,3 +232,6 @@ ADMIN_URL = env('DJANGO_ADMIN_URL')
 
 # Your production stuff: Below this line define 3rd party library settings
 # ------------------------------------------------------------------------------
+# Activate Django-Heroku.
+import django_heroku
+django_heroku.settings(locals())
