@@ -96,6 +96,21 @@ Migrate Database
 
     $ python3 manage.py collect
 
+Tools
+-----
+
+Linters
+^^^^^^^
+
+We follow PEP8 and ES6 coding standards for our Python and Javascript, respectively. Please adhere to these standards when commiting new code to the project. The linters that we use to follow these standards can be found below::
+
+* PyLint -> https://www.pylint.org/
+* JSLint -> https://www.npmjs.com/package/jslint
+
+We also use CSSLint for our CSS::
+
+* CSSLint -> http://csslint.net/
+
 
 Basic Commands
 --------------
@@ -131,7 +146,6 @@ Heroku
 See detailed `cookiecutter-django Heroku documentation`_.
 
 .. _`cookiecutter-django Heroku documentation`: http://cookiecutter-django.readthedocs.io/en/latest/deployment-on-heroku.html
-
 
 
 
