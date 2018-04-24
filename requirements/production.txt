@@ -30,7 +30,3 @@ opbeat==3.6.1
 # Whitenoise for static files
 # -----------------------------------------
 whitenoise==3.3.1
-
-# Django-heroku
-# -----------------------------------------
-django-heroku==0.3.1
