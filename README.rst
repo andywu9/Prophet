@@ -22,17 +22,23 @@ Basic Setup
 -----------
 Run the following commands **in the Prophet directory** in order to setup Prophet on your local machine (assumes working in bash shell)
 
+If you do not have a version of Python 3, please install it from here https://www.python.org/downloads/ or install using apt-get::
+
+    $ sudo apt-get install python3.6
+
 If you do not have pip3::
 
     $ sudo apt-get install python3-pip
     
-Install some requirements::
+Now let's install some requirements::
 
     $ pip3 install -r requirements.txt
     $ pip3 install django-debug-toolbar
     $ pip3 install django-extensions
     
-Create postgres user and DB::
+If you do not have postgres, please install it with instructions here http://postgresguide.com/setup/install.html::
+
+After installation, create postgres user and DB::
 
     $ sudo -u postgres -i
     $ createuser <YourLinuxUsername>
@@ -75,21 +81,35 @@ Migrate Database
     $ \password <yourpassword>
     $ \q 
 
-* Open the file **base.py**. In this file, find the DATABASE dictionary and add a new kew:value phrase inside the "default" key. The new pair should be **"PASSWORD":"<yourpassword>"**. Back in your bash shell, time to migrate the data::
+* Open the file **base.py**. In this file, find the DATABASE dictionary and add a new key:value phrase inside the "default" key. The new pair should be **"PASSWORD":"<yourpassword>"**. Back in your bash shell, time to migrate the data::
 
     $ python3 manage.py makemigrations prophet
     $ python3 manage.py migrate
+    $ python3 manage.py collect
+    
+* To populate the database with coin descriptions, run::
+    
     $ python3 manage.py shell
-    $ import collectData
-    $ collectData.collect()
-    $ quit()
+    $ from prophet import descriptions
 
-* You should now have data in your database to work with. If you ever want to update the database with the newest data, simply run::
+* You should now have data in your database to work with. If you ever want to update the database with the newest coin data, simply run::
 
-    $ python3 manage.py shell
-    $ import collectData
-    $ collectData.collect()
-    $ quit()
+    $ python3 manage.py collect
+
+Tools
+-----
+
+Linters
+^^^^^^^
+
+We follow PEP8 and ES6 coding standards for our Python and Javascript, respectively. Please adhere to these standards when commiting new code to the project. The linters that we use to follow these standards can be found below::
+
+* PyLint -> https://www.pylint.org/
+* JSLint -> https://www.npmjs.com/package/jslint
+
+We also use CSSLint for our CSS::
+
+* CSSLint -> http://csslint.net/
 
 
 Basic Commands
@@ -106,40 +126,12 @@ Setting Up Your Users
 
 For convenience, you can keep your normal user logged in on Chrome and your superuser logged in on Firefox (or similar), so that you can see how the site behaves for both kinds of users.
 
-Test coverage
-^^^^^^^^^^^^^
-
-To run the tests, check your test coverage, and generate an HTML coverage report::
-
-    $ coverage run manage.py test
-    $ coverage html
-    $ open htmlcov/index.html
-
-Running tests with py.test
-~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-::
-
-  $ py.test
-
 Live reloading and Sass CSS compilation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Moved to `Live reloading and SASS compilation`_.
 
 .. _`Live reloading and SASS compilation`: http://cookiecutter-django.readthedocs.io/en/latest/live-reloading-and-sass-compilation.html
-
-
-
-
-
-Sentry
-^^^^^^
-
-Sentry is an error logging aggregator service. You can sign up for a free account at  https://sentry.io/signup/?code=cookiecutter  or download and host it yourself.
-The system is setup with reasonable defaults, including 404 logging and integration with the WSGI application.
-
-You must set the DSN url in production.
 
 
 Deployment
@@ -154,7 +146,6 @@ Heroku
 See detailed `cookiecutter-django Heroku documentation`_.
 
 .. _`cookiecutter-django Heroku documentation`: http://cookiecutter-django.readthedocs.io/en/latest/deployment-on-heroku.html
-
 
 
 
