@@ -117,12 +117,15 @@ MANAGERS = ADMINS
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "proph",
+        "NAME": "prophet_current",
         "HOST": "localhost",
         "PORT": "5432",
-        "PASSWORD": "test1234",
+        # "PASSWORD": "test1234",
     }
 }
+
+import dj_database_url
+DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 
 

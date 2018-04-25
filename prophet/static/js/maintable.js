@@ -3,12 +3,9 @@
 /*global $, jQuery, Chart, historical_table */
 
 /**
-  * Creates and populates a chartjs graph for a given coin and places it
-  * in the provided canvas's context.
+  * filterTable filters the main table by the given search criteria
   *
-  * Inputs:
-  *     coin_name - the name of the coin to generate a graph for
-  *     ctx - the context of the canvas to place the chart in
+  * Inputs: (none)
   * 
   * Outputs: (none)
   * 
@@ -35,6 +32,18 @@ var filterTable = function () {
     }
 };
 
+
+/**
+  * createMainTableGraph generates and adds the graph for the provided coin
+  *         to the main table row.
+  *
+  * Inputs:
+  *     coin_name - the name of the coin to generate a graph for
+  *     ctx - the context of the canvas to place the chart in
+  * 
+  * Outputs: (none)
+  * 
+  **/
 var createMainTableGraph = function (coin_name, ctx) {
     var graph_data = [],
         historical_data = JSON.parse(historical_table),
@@ -98,20 +107,4 @@ var createMainTableGraph = function (coin_name, ctx) {
             }
         }
     });
-};
-
-var createFavoriteCell = function () {
-    var tdfav = document.createElement('td'),
-        starimg = new Image();
-
-    //add styles and attributes to cell
-    tdfav.classList.add('favcell');
-    tdfav.setAttribute('favorited', 'false');
-
-    //add styles and attributes to star image
-    starimg.classList.add('favstar');
-    starimg.src = 'static/images/EmptyStar.png';
-    tdfav.appendChild(starimg);
-
-    return tdfav;
 };
