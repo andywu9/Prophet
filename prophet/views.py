@@ -24,6 +24,8 @@ def home(request):
     for item in descriptions.values():
         descript[item["name"]] = item["description"]
 
+    print(descript)
+
     # Store pairings of coin name to symbols
     symbol = {}
     for row in symbols.values():
