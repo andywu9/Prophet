@@ -30,10 +30,10 @@ var loadGraph = function (coin_name, modal, date_restrict) {
         if (historical_data[coin_name].hasOwnProperty(data)) {
 
             // Skip data that from before desired date
-            historical_date = new Date(historical_data[coin_name][data].datetime);
+            historical_date = new Date(historical_data[coin_name][data].datetime.replace(/-/g, '/'));
             if (date_restrict === undefined || historical_date > date_restrict) {
                 point = {
-                    x : new Date(historical_data[coin_name][data].datetime),
+                    x : new Date(historical_data[coin_name][data].datetime.replace(/-/g, '/')),
                     y : historical_data[coin_name][data].historical_price,
                 };
 
@@ -48,7 +48,7 @@ var loadGraph = function (coin_name, modal, date_restrict) {
         if (prediction_data[coin_name].hasOwnProperty(data)) {
 
             point = {
-                x : prediction_data[coin_name][data].datetime,
+                x : new Date(prediction_data[coin_name][data].datetime.replace(/-/, '/')),
                 y : prediction_data[coin_name][data].predicted_price,
             };
 
