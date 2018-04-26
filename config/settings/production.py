@@ -126,17 +126,17 @@ DEFAULT_FROM_EMAIL = env('DJANGO_DEFAULT_FROM_EMAIL',
                          default='Prophet <noreply@sdd-prophet.herokuapp.com>')
 EMAIL_SUBJECT_PREFIX = env('DJANGO_EMAIL_SUBJECT_PREFIX', default='[Prophet]')
 SERVER_EMAIL = env('DJANGO_SERVER_EMAIL', default=DEFAULT_FROM_EMAIL)
+EMAIL_HOST = env('MAILGUN_SMTP_SERVER')
+EMAIL_PORT = env('MAILGUN_SMTP_PORT')
+EMAIL_HOST_USER = env('MAILGUN_SMTP_LOGIN')
+EMAIL_HOST_PASSWORD = env('MAILGUN_SMTP_PASSWORD')
+EMAIL_USE_TLS = True
 
 # Anymail with Mailgun
 INSTALLED_APPS += ['anymail', ]
 ANYMAIL = {
     'MAILGUN_API_KEY': env('DJANGO_MAILGUN_API_KEY'),
     'MAILGUN_SENDER_DOMAIN': env('MAILGUN_SENDER_DOMAIN'),
-    'EMAIL_HOST': env('MAILGUN_SMTP_SERVER'),
-    'EMAIL_PORT': env('MAILGUN_SMTP_PORT'),
-    'EMAIL_HOST_USER': env('MAILGUN_SMTP_LOGIN'),
-    'EMAIL_HOST_PASSWORD': env('MAILGUN_SMTP_PASSWORD')
-    EMAIL_USE_TLS = True
 }
 # EMAIL_BACKEND = 'anymail.backends.mailgun.EmailBackend'
 EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND', default='django.core.mail.backends.console.EmailBackend')
