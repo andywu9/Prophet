@@ -139,8 +139,8 @@ ANYMAIL = {
     'EMAIL_USE_TLS': True,
     'MAILGUN_API_URL' : 'https://api.mailgun.net/v3'
 }
-# EMAIL_BACKEND = 'anymail.backends.mailgun.EmailBackend'
-EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND', default='django.core.mail.backends.console.EmailBackend')
+EMAIL_BACKEND = 'anymail.backends.mailgun.EmailBackend'
+# EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND', default='django.core.mail.backends.console.EmailBackend')
 
 # TEMPLATE CONFIGURATION
 # ------------------------------------------------------------------------------
