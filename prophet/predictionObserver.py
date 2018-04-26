@@ -19,5 +19,6 @@ class PredictionObserver(observer.Observer):
         for prediction in predictions:
             pred = models.Prediction(name=prediction["name"],
                                      datetime=prediction["datetime"],
-                                     predicted_price=prediction["predicted_price"])
+                                     predicted_price=prediction["predicted_price"],
+                                     strategy=prediction["strategy"])
             pred.save()
