@@ -1,3 +1,4 @@
+"use strict";
 Number.prototype.formatMoney = function (c, d, t) {
     var n, s, i, j;
 

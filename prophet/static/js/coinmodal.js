@@ -1,6 +1,6 @@
 "use strict";
 /*jslint browser: true, continue:true */
-/*global $, jQuery, Chart, historical_table, prediction_table, data, symbols, descriptions */
+/*global $, jQuery, Chart, historical_table, prediction_table, data, symbols, descriptions, moment */
 
 /**
   * loadGraph loads a new chartjs graph into provided modal
@@ -94,17 +94,17 @@ var loadGraph = function (coin_name, modal, date_restrict) {
                 xAxes: [{
                     type: 'time',
                     time: {
-                      displayFormats: {
-                         'millisecond': 'MMM DD, hA',
-                         'second': 'MMM DD, hA',
-                         'minute': 'MMM DD, hA',
-                         'hour': 'MMM DD, hA',
-                         'day': 'MMM DD, hA',
-                         'week': 'MMM DD, hA',
-                         'month': 'MMM DD, hA',
-                         'quarter': 'MMM DD, hA',
-                         'year': 'MMM DD, hA',
-                      },
+                        displayFormats: {
+                            'millisecond': 'MMM DD, hA',
+                            'second': 'MMM DD, hA',
+                            'minute': 'MMM DD, hA',
+                            'hour': 'MMM DD, hA',
+                            'day': 'MMM DD, hA',
+                            'week': 'MMM DD, hA',
+                            'month': 'MMM DD, hA',
+                            'quarter': 'MMM DD, hA',
+                            'year': 'MMM DD, hA',
+                        },
                     },
                     ticks: {
                         source: 'auto',
@@ -223,10 +223,9 @@ var loadModalData = function (coin_name) {
     desc.innerText = description;
     type = JSON.parse(prediction_table)[coin_name][0].strategy;
     strategy = $('#algo-desc-text').get(0);
-    if (type === "neural"){
-      strategy.innerHTML = neural;
-    }
-    else{
-      strategy.innerHTML = linear;
+    if (type === "neural") {
+        strategy.innerHTML = neural;
+    } else {
+        strategy.innerHTML = linear;
     }
 };
