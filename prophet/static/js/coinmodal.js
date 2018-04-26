@@ -48,7 +48,7 @@ var loadGraph = function (coin_name, modal, date_restrict) {
         if (prediction_data[coin_name].hasOwnProperty(data)) {
 
             point = {
-                x : new Date(prediction_data[coin_name][data].datetime.replace(/-/, '/')),
+                x : new Date(prediction_data[coin_name][data].datetime.replace(/-/g, '/')),
                 y : prediction_data[coin_name][data].predicted_price,
             };
 
