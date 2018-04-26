@@ -30,15 +30,15 @@ var loadGraph = function (coin_name, modal, date_restrict) {
         if (historical_data[coin_name].hasOwnProperty(data)) {
 
             // Skip data that from before desired date
-            historical_date = new Date(historical_data[coin_name][data].datetime.replace(/-/g, '/'));
-            if (date_restrict === undefined || historical_date > date_restrict) {
+            historical_date = moment(historical_data[coin_name][data].datetime);
+            if (date_restrict === undefined || historical_date.isAfter(date_restrict)) {
                 point = {
-                    x : new Date(historical_data[coin_name][data].datetime.replace(/-/g, '/')),
+                    x : moment(historical_data[coin_name][data].datetime),
                     y : historical_data[coin_name][data].historical_price,
                 };
 
                 graph_data.push(point);
-                time_labels.push(historical_data[coin_name][data].datetime);
+                time_labels.push(moment(historical_data[coin_name][data].datetime));
             }
         }
     }
@@ -48,12 +48,12 @@ var loadGraph = function (coin_name, modal, date_restrict) {
         if (prediction_data[coin_name].hasOwnProperty(data)) {
 
             point = {
-                x : new Date(prediction_data[coin_name][data].datetime.replace(/-/g, '/')),
+                x : moment(prediction_data[coin_name][data].datetime),
                 y : prediction_data[coin_name][data].predicted_price,
             };
 
             future_data.push(point);
-            time_labels.push(prediction_data[coin_name][data].datetime);
+            time_labels.push(moment(prediction_data[coin_name][data].datetime));
         }
     }
 
@@ -143,13 +143,13 @@ var resetCanvas = function (modal) {
   * Output: (none)
   **/
 var openHistory = function (evt, days_back) {
-    var date_restrict = new Date(),
+    var date_restrict = moment(),
         modal = $('#myModal'),
         tablinks = $(".tablinks"),
         i;
 
     // Conver the days back into milliseconds. Makes the math easy with getTime for dates.
-    date_restrict = new Date(date_restrict.getTime() - days_back * 24 * 60 * 60 * 1000);
+    date_restrict = moment.unix(date_restrict.valueOf() - days_back * 24 * 60 * 60 * 1000, "x");
 
     // Remove the current graph and load the new graph
     resetCanvas(modal);
