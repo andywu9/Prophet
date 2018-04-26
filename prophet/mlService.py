@@ -26,7 +26,8 @@ class MLService(subject.Subject):
             for item in results:
                 my_predic = {"name": self.coin_name,
                              "predicted_price": float(item[1]),
-                             "datetime": datetime.datetime.strptime(item[0], '%Y-%m-%d %H:%M:%S')}
+                             "datetime": datetime.datetime.strptime(item[0], '%Y-%m-%d %H:%M:%S'),
+                             "strategy": self.my_strategy.get_type()}
                 self.my_predictions.append(my_predic)
 
     def get_state(self):

@@ -6,3 +6,5 @@ class NeuralStrategy(strat.Strategy):
     # Run the neural net and pass back data to mlService
     def execute(self, filename):
         return runPrediction.execute(filename, 12)
+    def get_type(self):
+        return "neural"

@@ -14,6 +14,9 @@ class LinearStrategy(strat.Strategy):
     def execute(self, filename):
         return execute_linreg(filename)
 
+    def get_type(self):
+        return "linear"
+
 
 # method that will execute a linear regression for a csv data file
 # and return the predicted prices for 5 minute time intervals

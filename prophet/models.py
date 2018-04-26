@@ -24,6 +24,7 @@ class Prediction(models.Model):
                                     blank=True)
     name = models.CharField(max_length=30, default="")
     predicted_price = models.DecimalField(max_digits=19, decimal_places=10)
+    strategy = models.CharField(max_length=30, default="")
 
 
 class Coin(models.Model):

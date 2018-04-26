@@ -178,7 +178,14 @@ var loadModalData = function (coin_name) {
         change_data,
         symbol,
         description,
-        desc;
+        desc,
+        neural,
+        linear,
+        type,
+        strategy;
+
+    neural = "Currently, we're using a long-short term recurrent nueral network to generate future price predictions";
+    linear = "Currently, we're using a linear regression in order to predict future coin prices. Past coin prices are supplied to the regression in order to predict future prices.";
 
     // Set all data
     title.innerText = coin_name;
@@ -192,9 +199,19 @@ var loadModalData = function (coin_name) {
     $('#price_change_6').get(0).innerText = change_data[4] === 'NA' ? change_data[4] : change_data[4] + '%';
     $('#price_change_12').get(0).innerText = change_data[6] === 'NA' ? change_data[6] : change_data[6] + '%';
 
+
+
     // Retrieve the coin's description for the information tab
     symbol = JSON.parse(symbols)[coin_name];
     description = JSON.parse(descriptions)[symbol];
     desc = $('#coin-desc-text').get(0);
     desc.innerText = description;
+    type = JSON.parse(prediction_table)[coin_name][0].strategy;
+    strategy = $('#algo-desc-text').get(0);
+    if (type === "neural"){
+      strategy.innerHTML = neural;
+    }
+    else{
+      strategy.innerHTML = linear;
+    }
 };
