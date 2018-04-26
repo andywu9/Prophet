@@ -61,13 +61,13 @@ table.tablesorter th.tablesorter-headerUnSorted:not(.no-sorter){
 }
 
 table.tablesorter th.tablesorter-headerAsc:not(.no-sorter) {
-    background-image: url(http://tablesorter.com/themes/blue/asc.gif);
+    background-image: url('http://tablesorter.com/themes/blue/asc.gif');
     background-repeat: no-repeat;
     background-position: center right;
 }
 
 table.tablesorter th.tablesorter-headerDesc:not(.no-sorter) {
-    background-image: url(http://tablesorter.com/themes/blue/desc.gif);
+    background-image: url('http://tablesorter.com/themes/blue/desc.gif');
     background-repeat: no-repeat;
     background-position: center right;
 }
@@ -141,4 +141,60 @@ background-color: #8dbdd8;
 
 ul {
   width: 100%;
+}
+
+.nav {
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+.nav > li {
+  position: relative;
+  display: block;
+}
+.nav > li > a {
+  position: relative;
+  display: block;
+  padding: 10px 15px;
+}
+.nav > li > a:hover,
+.nav > li > a:focus {
+  text-decoration: none;
+  background-color: #eee;
+}
+.nav > li.disabled > a {
+  color: #777;
+}
+.nav > li.disabled > a:hover,
+.nav > li.disabled > a:focus {
+  color: #777;
+  text-decoration: none;
+  cursor: not-allowed;
+  background-color: transparent;
+}
+
+.nav-tabs {
+  border-bottom: 1px solid #ddd;
+}
+.nav-tabs > li {
+  float: left;
+  margin-bottom: -1px;
+}
+.nav-tabs > li > a {
+  margin-right: 2px;
+  line-height: 1.42857143;
+  border: 1px solid transparent;
+  border-radius: 4px 4px 0 0;
+}
+.nav-tabs > li > a:hover {
+  border-color: #eee #eee #ddd;
+}
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+  color: #555;
+  cursor: default;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-bottom-color: transparent;
 }

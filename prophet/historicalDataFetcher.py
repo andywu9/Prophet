@@ -52,6 +52,7 @@ class HistoricalDataFetcher(subject.Subject):
                    "price_change_hour": self.price_change_hour,
                    "price_change_week": self.price_change_week,
                    "rank": self.rank,
+                   "symbol": self.symbol,
                    "volume": self.volume}
         self.parsed_data.append(updates)
 
