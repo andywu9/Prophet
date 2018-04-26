@@ -149,7 +149,7 @@ var openHistory = function (evt, days_back) {
         i;
 
     // Conver the days back into milliseconds. Makes the math easy with getTime for dates.
-    date_restrict = moment.unix(date_restrict.valueOf() - days_back * 24 * 60 * 60 * 1000, "x");
+    date_restrict = moment(date_restrict.valueOf() - days_back * 24 * 60 * 60 * 1000, "x");
 
     // Remove the current graph and load the new graph
     resetCanvas(modal);
