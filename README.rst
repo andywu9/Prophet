@@ -55,8 +55,9 @@ Run PostgreSQL DB
 
 **Ubuntu/Mint/etc users**::
 
-    $ : sudo service postgresql start (This starts the database)
-    
+    $ : sudo service postgresql start     
+(This starts the database)
+
 **Mac users**::
 
     $ pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
