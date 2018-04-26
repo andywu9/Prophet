@@ -185,7 +185,8 @@ var loadModalData = function (coin_name) {
         strategy;
 
     neural = "Currently, we're using a long-short term recurrent nueral network to generate future price predictions";
-    linear = "Currently, we're using a linear regression in order to predict future coin prices. Past coin prices are supplied to the regression in order to predict future prices.";
+    linear = "Currently, we're using a linear regression in order to predict future coin prices. Past coin prices are \
+    supplied to the regression in order to predict future prices.";
 
     // Set all data
     title.innerText = coin_name;
