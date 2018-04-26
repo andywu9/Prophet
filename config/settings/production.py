@@ -136,6 +136,7 @@ ANYMAIL = {
     'EMAIL_PORT': env('MAILGUN_SMTP_PORT'),
     'EMAIL_HOST_USER': env('MAILGUN_SMTP_LOGIN'),
     'EMAIL_HOST_PASSWORD': env('MAILGUN_SMTP_PASSWORD')
+    EMAIL_USE_TLS = True
 }
 # EMAIL_BACKEND = 'anymail.backends.mailgun.EmailBackend'
 EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND', default='django.core.mail.backends.console.EmailBackend')
