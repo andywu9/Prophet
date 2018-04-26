@@ -15,7 +15,7 @@ def home(request):
         models.Coin.objects.all().order_by('rank'), ensure_ascii=True)
     symbols = models.Coin.objects.all()
     historical_data = models.Historical.objects.annotate(
-        idmod2=F('id') % 2).filter(idmod2=0).order_by('datetime').values()
+        idmod2=F('id') % 3).filter(idmod2=0).order_by('datetime').values()
     predictive_data = models.Prediction.objects.all().order_by('datetime').values()
     descriptions = models.Description.objects.all()
 
