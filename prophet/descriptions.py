@@ -19,13 +19,13 @@ for coin in coin_data["Data"].keys():
     resp = requests.get(url)
     descript = json.loads(resp.text)
 
-    # parse response to obtain description
+    # Parse response to obtain description
     description = descript["Data"]["General"]["Description"]
-    description = re.sub('<.*?>', '', description)
+    description = re.sub("<.*?>", "", description)
     description.strip("|")
     description.strip("")
 
-    # save the description in the descriptions table
+    # Save the description in the descriptions table
     descrip = models.Description(name=name,
                                  description=description)
     descrip.save()

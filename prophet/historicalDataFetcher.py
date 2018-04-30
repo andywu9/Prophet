@@ -5,10 +5,11 @@ from prophet import models
 from prophet import subject
 
 
-# Historical Data Fetcher class collects new coin data
-# from an api and then alerts it's observers that it's state
-# has been changed
 class HistoricalDataFetcher(subject.Subject):
+    """ Historical Data Fetcher class collects new coin data
+        from an api and then alerts it's observers that it's state
+        has been changed
+    """
 
     coin_data = {}
     api_url = ""
@@ -29,8 +30,8 @@ class HistoricalDataFetcher(subject.Subject):
         self.symbol = ""
         self.volume = ""
 
-    # Set all NoneType data to 0
     def filter_data(self):
+        """ Set all NoneType data to 0 """
 
         # Iterate for each coin and data type per coin
         for coin in self.coin_data:
@@ -38,12 +39,15 @@ class HistoricalDataFetcher(subject.Subject):
                 if coin[value] is None:
                     coin[value] = "0"
 
-    # Return the parsed data from the api
     def get_state(self):
+        """ Return the parsed data from the api """
+
         return self.parsed_data
 
-    # store the new state we found
+
     def update_state(self):
+        """ Store the new state we found """
+
         updates = {"circulating_supply": self.circulating_supply,
                    "market_cap": self.market_cap,
                    "name": self.name,
@@ -56,8 +60,9 @@ class HistoricalDataFetcher(subject.Subject):
                    "volume": self.volume}
         self.parsed_data.append(updates)
 
-    # save coin data from api in historical table and update observers
     def store_data(self):
+        """ Save coin data from api in historical table and update observers """
+
         # For each coin save the new data and update our internal storage
         for coin in self.coin_data:
             self.circulating_supply = float(coin["available_supply"])
@@ -88,19 +93,26 @@ class HistoricalDataFetcher(subject.Subject):
 
         self.update_observers()
 
-    # driver function to collect data from api
     def collect_data(self):
+        """ A driver function to collect data from api """
+
         response = requests.get(self.api_url)
         self.coin_data = json.loads(response.text)
         self.filter_data()
         self.store_data()
 
     def add_observer(self, obs):
+        """ Attach observers to subject """
+
         self.my_observers.append(obs)
 
     def remove_observer(self, obs):
+        """ Remove observers from subject """
+
         self.my_observers.remove(obs)
 
     def update_observers(self):
+        """ Send an update to all attached observers """
+
         for observer in self.my_observers:
             observer.update()

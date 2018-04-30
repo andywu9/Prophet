@@ -1,13 +1,14 @@
 import numpy as np
 import pandas as pd
 
-def load_timeseries(filename, params):
-    # Load time series dataset
 
-    series = pd.read_csv(filename, sep=',', header=0, index_col=0, usecols=[1, 2], squeeze=True)
+def load_timeseries(filename, params):
+    """ Load time series dataset """
+
+    series = pd.read_csv(filename, sep=",", header=0, index_col=0, usecols=[1, 2], squeeze=True)
     data = series.values
     last_datetime_epoch = series.tail(1).keys().get_values()[0]
-    adjusted_window = params['window_size']+ 1
+    adjusted_window = params["window_size"]+ 1
 
     # Split data into windows
     raw = []
@@ -21,7 +22,7 @@ def load_timeseries(filename, params):
     result = np.array(result)
 
     # Split the input dataset into train and test
-    split_ratio = round(params['train_test_split'] * result.shape[0])
+    split_ratio = round(params["train_test_split"] * result.shape[0])
     train = result[:int(split_ratio), :]
     np.random.shuffle(train)
 
@@ -40,7 +41,7 @@ def load_timeseries(filename, params):
     y_test_raw = raw[int(split_ratio):, -1]
 
     # Last window, for next time stamp prediction
-    last_raw = [data[-params['window_size']:]]
+    last_raw = [data[-params["window_size"]:]]
     last = normalize_windows(last_raw)
     last = np.array(last)
     last = np.reshape(last, (last.shape[0], last.shape[1], 1))
@@ -48,7 +49,7 @@ def load_timeseries(filename, params):
     return [x_train, y_train, x_test, y_test, x_test_raw, y_test_raw, last_raw, last, last_datetime_epoch]
 
 def normalize_windows(window_data):
-    # Normalize data
+    """ Normalize data """
 
     normalized_data = []
     for window in window_data:

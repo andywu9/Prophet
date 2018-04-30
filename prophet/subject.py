@@ -1,5 +1,6 @@
-# Subject interface
 class Subject():
+    """ Subject interface """
+
     def add_observer(self, obs):
         pass
 

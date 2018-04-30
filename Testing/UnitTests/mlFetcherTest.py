@@ -4,8 +4,9 @@ from unittest import TestCase
 from prophet import mlFetcher as fetch
 from prophet import models
 
-# Mock query object for database lookups
+
 class MockQuerySet(object):
+    """ Mock query object for database lookups """
 
     def __init__(self):
         self.name = "bitcoin"
@@ -15,20 +16,27 @@ class MockQuerySet(object):
         self.market_cap = "345.67"
         self.volume = "10"
 
-# Test that the MLFetcher class works as expected
+
 class TestMLFetcher(TestCase):
+    """ Test that the MLFetcher class works as expected """
+
+    def __init__(self):
+        super().__init__()
+        self.set_up()
 
     def set_up(self):
         self.fetcher = fetch.MLFetcher()
 
-    # check that collect data function sets internal variable correctly
     def test_collect_data(self):
-        # mock the return from db lookup
+        """ Check that collect data function sets internal variable correctly """
+
+        # Mock the return from db lookup
         models.Historical.objects.all = MagicMock(return_value=[MockQuerySet()])
         self.fetcher.collect_data()
-        self.assertEquals(self.fetcher.historical_data,
-                          {'bitcoin': [['bitcoin', '1520053200', 123.45, 12345.67, 345.67, 10.0]]})
+        self.assertEqual(self.fetcher.historical_data,
+                         {'bitcoin': [['bitcoin', '1520053200', 123.45, 12345.67, 345.67, 10.0]]})
 
     def run_test(self):
-        self.set_up()
+        """ Run the test suite """
+
         self.test_collect_data()
