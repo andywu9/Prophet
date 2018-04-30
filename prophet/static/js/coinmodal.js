@@ -1,6 +1,6 @@
 "use strict";
 /*jslint browser: true, continue:true */
-/*global $, jQuery, Chart, historical_table, prediction_table, data, symbols, descriptions */
+/*global $, jQuery, Chart, historical_table, prediction_table, data, symbols, descriptions, moment */
 
 /**
   * loadGraph loads a new chartjs graph into provided modal
@@ -31,14 +31,15 @@ var loadGraph = function (coin_name, modal, date_restrict) {
 
             // Skip data that from before desired date
             historical_date = moment(historical_data[coin_name][data].datetime);
+            console.log(historical_date);
             if (date_restrict === undefined || historical_date.isAfter(date_restrict)) {
                 point = {
-                    x : moment(historical_data[coin_name][data].datetime),
+                    x : historical_date,
                     y : historical_data[coin_name][data].historical_price,
                 };
 
                 graph_data.push(point);
-                time_labels.push(moment(historical_data[coin_name][data].datetime));
+                time_labels.push(historical_date.valueOf());
             }
         }
     }
@@ -48,12 +49,12 @@ var loadGraph = function (coin_name, modal, date_restrict) {
         if (prediction_data[coin_name].hasOwnProperty(data)) {
 
             point = {
-                x : moment(prediction_data[coin_name][data].datetime),
+                x : moment(prediction_data[coin_name][data].datetime).valueOf(),
                 y : prediction_data[coin_name][data].predicted_price,
             };
 
             future_data.push(point);
-            time_labels.push(moment(prediction_data[coin_name][data].datetime));
+            time_labels.push(moment(prediction_data[coin_name][data].datetime).valueOf());
         }
     }
 
@@ -92,6 +93,19 @@ var loadGraph = function (coin_name, modal, date_restrict) {
             scales: {
                 xAxes: [{
                     type: 'time',
+                    time: {
+                        displayFormats: {
+                            'millisecond': 'MMM DD, hA',
+                            'second': 'MMM DD, hA',
+                            'minute': 'MMM DD, hA',
+                            'hour': 'MMM DD, hA',
+                            'day': 'MMM DD, hA',
+                            'week': 'MMM DD, hA',
+                            'month': 'MMM DD, hA',
+                            'quarter': 'MMM DD, hA',
+                            'year': 'MMM DD, hA',
+                        },
+                    },
                     ticks: {
                         source: 'auto',
                         autoSkip: true,
@@ -209,10 +223,9 @@ var loadModalData = function (coin_name) {
     desc.innerText = description;
     type = JSON.parse(prediction_table)[coin_name][0].strategy;
     strategy = $('#algo-desc-text').get(0);
-    if (type === "neural"){
-      strategy.innerHTML = neural;
-    }
-    else{
-      strategy.innerHTML = linear;
+    if (type === "neural") {
+        strategy.innerHTML = neural;
+    } else {
+        strategy.innerHTML = linear;
     }
 };
